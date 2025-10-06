@@ -1,0 +1,194 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "About Us",
+    "profile": "Company Profile",
+    "vision_mission": "Vision & Mission",
+    "values": "Company Values",
+    "csr": "CSR Program",
+    "products": "Products",
+    "pipefittings": "Pipe Fittings",
+    "drainage": "Drainage",
+    "construction": "Construction",
+    "automotive": "Automotive",
+    "mining": "Mining",
+    "heavyequip": "Heavy Equipment",
+    "other": "Others",
+    "customers": "Customers",
+    "blog": "Blog",
+    "contact": "Contact Us"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Innovative Solutions for Manufacturing Industry",
+      "subtitle": "Quality, Precision, and Reliability in Every Product We Produce.",
+      "button": "Learn More"
+    },
+    "why_us": {
+      "title": "Why Choose Us?",
+      "subtitle": "Our commitment is to provide more value for every client through excellence in service and products.",
+      "feature1_title": "Guaranteed Quality",
+      "feature1_desc": "We use the best materials and a strict quality control process.",
+      "feature2_title": "Professional Team",
+      "feature2_desc": "Supported by experienced engineers and technicians in their fields.",
+      "feature3_title": "Modern Technology",
+      "feature3_desc": "Adopting the latest machinery and software for precise results."
+    },
+    "about_snippet": {
+      "title": "Over 15 Years Serving the Industry",
+      "description": "PT Inti Logam Persada is your trusted partner in providing precision metal components. Since 2008, we have dedicated ourselves to delivering the best manufacturing solutions.",
+      "button": "Company Profile"
+    },
+    "clients": {
+      "title": "Trusted by Leading Companies"
+    },
+    "cta": {
+      "title": "Let's Realize Your Project With Us",
+      "subtitle": "Discuss your needs with our expert team. Get a free consultation and the best offer for your manufacturing project today.",
+      "button": "Contact Us Now"
+    }
+  },
+  "footer": {
+    "description": "The leading metal manufacturing solution that prioritizes quality, precision, and innovation to meet global industry needs.",
+    "navigation": "Navigation",
+    "contact_us": "Contact Us",
+    "address": "Jl. Industri Raya No. 123, South Tangerang, Banten",
+    "email": "Email",
+    "phone": "Phone"
+  },
+  "products_page": {
+    "intro": "Explore our product categories and find the right solution for your needs.",
+    "all": "All Products",
+    "back": "Back to Products",
+    "interested": "Interested in:",
+    "order_info": "You can place an order by contacting us below:",
+    "button_view": "View Details"
+  },
+  "contact_page": {
+    "header_title": "CONTACT US",
+    "header_subtitle": "We are ready to help and answer your every question.",
+    "info_title": "Contact Us",
+    "address_label": "Office Address",
+    "phone_label": "Phone",
+    "whatsapp_label": "WhatsApp",
+    "email_label": "Email",
+    "social_media_title": "Our Social Media",
+    "form_title": "Send a Quick Message",
+    "form_name": "Full Name",
+    "form_email": "Email",
+    "form_subject": "Subject",
+    "form_message": "Message",
+    "form_button": "Send Message"
+  }
+  ,
+  "about": {
+    "title": "About Us - PT Inti Logam Persada",
+    "meta": "Learn more about the history, vision, and mission of PT Inti Logam Persada in the metal manufacturing industry.",
+    "header": "About PT Inti Logam Persada",
+    "history_title": "Our Journey",
+    "history_desc": "Founded in 2010, PT Inti Logam Persada started as a small workshop with a big vision to become a leader in the metal manufacturing industry. With dedication to quality and technology adoption, we have transformed into a trusted company serving national and international clients.",
+    "vision_title": "Our Vision",
+    "vision_desc": "To become the leading choice for metal manufacturing in Southeast Asia, known for innovation, quality, and reliability.",
+    "mission_title": "Our Mission",
+    "mission_1": "Consistently provide high-quality products.",
+    "mission_2": "Invest in technology and human resources.",
+    "mission_3": "Build long-term partnerships with customers."
+  },
+  "services": {
+    "title": "Our Services - PT Inti Logam Persada",
+    "meta": "Explore our metal manufacturing services, including CNC Machining, Fabrication, Welding, and Surface Finishing.",
+    "header": "Our Comprehensive Services",
+    "cnc_title": "CNC Machining",
+    "cnc_desc": "Computerized machining process to create complex components with micron-level accuracy.",
+    "sheet_title": "Sheet Metal Fabrication",
+    "sheet_desc": "Cutting, bending, and assembling sheet metal for various industrial applications.",
+    "welding_title": "Welding & Assembly",
+    "welding_desc": "Professional welding services (MIG, TIG) and final assembly for strong and neat construction.",
+    "finishing_title": "Surface Finishing",
+    "finishing_desc": "Finishing services such as powder coating, anodizing, and polishing for aesthetics and protection."
+  },
+  "portfolio": {
+    "title": "Portfolio - PT Inti Logam Persada",
+    "meta": "See our gallery of successful projects in various industries.",
+    "header": "Our Project Portfolio",
+    "item1": "Automotive Components",
+    "item2": "Industrial Machine Frames",
+    "item3": "Electronic Panels",
+    "item4": "Medical Equipment",
+    "item5": "Architectural Brackets",
+    "item6": "Custom Prototypes"
+  },
+  "blog_page": {
+    "title": "Blog",
+    "description": "Read the latest articles and news from PT Inti Logam Persada.",
+    "header_title": "Blog & Latest News",
+    "header_subtitle": "Stay informed with insights from our industry.",
+    "read_more": "Read More"
+  },
+  "latest_news_section": {
+    "title": "Latest News",
+    "subtitle": "Stay updated with the latest insights and articles from our industry experts."
+  },
+  "profile": {
+    "title": "Company Profile",
+    "meta": "Learn more about our company profile, history, and achievements.",
+    "desc": "PT Inti Logam Persada is a leading metal manufacturing company with a strong commitment to quality, innovation, and customer satisfaction."
+  },
+  "vision_mission": {
+    "title": "Vision & Mission",
+    "meta": "Discover our vision and mission as a trusted manufacturing partner.",
+    "desc": "Our vision is to be the best partner in the metal industry. Our mission is to deliver high-quality products and services through continuous improvement and innovation."
+  },
+  "values": {
+    "title": "Company Values",
+    "meta": "Our core values that drive our company culture and service.",
+    "desc": "Integrity, professionalism, innovation, and customer focus are the core values that guide every aspect of our business."
+  },
+  "csr": {
+    "title": "CSR Program",
+    "meta": "Our commitment to social and environmental responsibility.",
+    "desc": "We are committed to giving back to the community and supporting sustainable development through various CSR initiatives.",
+    "item1": "Social programs for communities around the factory.",
+    "item2": "Environmental initiatives and sustainable education."
+  },
+  "pipe_fittings": {
+    "title": "Pipe Fittings",
+    "meta": "Explore our range of high-quality pipe fittings for various industries.",
+    "desc": "We provide durable and precise pipe fittings for industrial, construction, and infrastructure needs."
+  },
+  "drainage": {
+    "title": "Drainage",
+    "meta": "Drainage solutions for industrial and infrastructure projects.",
+    "desc": "Our drainage products are designed for optimal flow and long-lasting performance in various environments."
+  },
+  "construction": {
+    "title": "Construction",
+    "meta": "Metal products and solutions for construction projects.",
+    "desc": "We support construction projects with reliable metal components and custom solutions."
+  },
+  "automotive": {
+    "title": "Automotive",
+    "meta": "Automotive metal parts and solutions.",
+    "desc": "Supplying precision metal parts for the automotive industry with strict quality standards."
+  },
+  "mining": {
+    "title": "Mining",
+    "meta": "Metal products for mining industry needs.",
+    "desc": "Our products are built to withstand the demanding conditions of the mining sector."
+  },
+  "heavy_equipment": {
+    "title": "Heavy Equipment",
+    "meta": "Components and solutions for heavy equipment manufacturing.",
+    "desc": "We manufacture robust and reliable parts for heavy equipment and machinery."
+  },
+  "others": {
+    "title": "Others",
+    "meta": "Other metal products and custom solutions.",
+    "desc": "We also provide custom metal products tailored to your specific requirements."
+  },
+  "customers": {
+    "title": "Customers",
+    "meta": "Our valued customers and client portfolio.",
+    "desc": "We are trusted by leading companies from various industries as their manufacturing partner."
+  }
+}

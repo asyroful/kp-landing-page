@@ -1,0 +1,194 @@
+{
+  "navbar": {
+    "home": "Beranda",
+    "about": "Tentang Kami",
+    "profile": "Profil Perusahaan",
+    "vision_mission": "Visi & Misi",
+    "values": "Nilai Perusahaan",
+    "csr": "Program CSR",
+    "products": "Produk",
+    "pipefittings": "Sambungan Pipa",
+    "drainage": "Drainase",
+    "construction": "Konstruksi",
+    "automotive": "Otomotif",
+    "mining": "Pertambangan",
+    "heavyequip": "Alat Berat",
+    "other": "Lainnya",
+    "customers": "Customer",
+    "blog": "Blog",
+    "contact": "Hubungi Kami"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Solusi Inovatif Industri Manufaktur",
+      "subtitle": "Kualitas, Presisi, dan Keandalan dalam Setiap Produk yang Kami Hasilkan.",
+      "button": "Pelajari Lebih Lanjut"
+    },
+    "why_us": {
+      "title": "Mengapa Memilih Kami?",
+      "subtitle": "Komitmen kami adalah memberikan nilai lebih bagi setiap klien melalui keunggulan dalam layanan dan produk.",
+      "feature1_title": "Kualitas Terjamin",
+      "feature1_desc": "Kami menggunakan material terbaik dan proses quality control yang ketat.",
+      "feature2_title": "Tim Profesional",
+      "feature2_desc": "Didukung oleh para insinyur dan teknisi berpengalaman di bidangnya.",
+      "feature3_title": "Teknologi Modern",
+      "feature3_desc": "Mengadopsi mesin dan perangkat lunak terkini untuk hasil presisi."
+    },
+    "about_snippet": {
+      "title": "Lebih dari 15 Tahun Melayani Industri",
+      "description": "PT Inti Logam Persada adalah mitra terpercaya Anda dalam penyediaan komponen logam presisi. Sejak 2008, kami telah mendedikasikan diri untuk memberikan solusi manufaktur terbaik.",
+      "button": "Profil Perusahaan"
+    },
+    "clients": {
+      "title": "Dipercaya Oleh Perusahaan Terkemuka"
+    },
+    "cta": {
+      "title": "Mari Wujudkan Proyek Anda Bersama Kami",
+      "subtitle": "Diskusikan kebutuhan Anda dengan tim ahli kami. Dapatkan konsultasi gratis dan penawaran terbaik untuk proyek manufaktur Anda hari ini.",
+      "button": "Hubungi Kami Sekarang"
+    }
+  },
+  "footer": {
+    "description": "Solusi manufaktur logam terdepan yang mengedepankan kualitas, presisi, dan inovasi untuk memenuhi kebutuhan industri global.",
+    "navigation": "Navigasi",
+    "contact_us": "Hubungi Kami",
+    "address": "Jl. Industri Raya No. 123, Tangerang Selatan, Banten",
+    "email": "Email",
+    "phone": "Telepon"
+  },
+  "products_page": {
+    "intro": "Jelajahi kategori produk kami dan temukan solusi terbaik untuk kebutuhan Anda.",
+    "all": "Semua Produk",
+    "back": "Kembali ke Produk",
+    "interested": "Tertarik dengan:",
+    "order_info": "Anda dapat melakukan pemesanan dengan menghubungi kami di bawah ini:",
+    "button_view": "Lihat Detail"
+  },
+  "contact_page": {
+    "header_title": "HUBUNGI KAMI",
+    "header_subtitle": "Kami siap membantu dan menjawab setiap pertanyaan Anda.",
+    "info_title": "Hubungi Kami",
+    "address_label": "Alamat Kantor",
+    "phone_label": "Telepon",
+    "whatsapp_label": "WhatsApp",
+    "email_label": "Email",
+    "social_media_title": "Media Sosial Kami",
+    "form_title": "Kirim Pesan Cepat",
+    "form_name": "Nama Lengkap",
+    "form_email": "Email",
+    "form_subject": "Subjek",
+    "form_message": "Pesan",
+    "form_button": "Kirim Pesan"
+  }
+  ,
+  "about": {
+    "title": "Tentang Kami - PT Inti Logam Persada",
+    "meta": "Pelajari lebih lanjut tentang sejarah, visi, dan misi PT Inti Logam Persada dalam industri manufaktur logam.",
+    "header": "Tentang PT Inti Logam Persada",
+    "history_title": "Perjalanan Kami",
+    "history_desc": "Didirikan pada tahun 2010, PT Inti Logam Persada berawal dari sebuah bengkel kecil dengan visi besar untuk menjadi pemimpin dalam industri manufaktur logam. Dengan dedikasi pada kualitas dan adopsi teknologi, kami telah bertransformasi menjadi perusahaan terpercaya yang melayani klien nasional dan internasional.",
+    "vision_title": "Visi Kami",
+    "vision_desc": "Menjadi perusahaan manufaktur logam pilihan utama di Asia Tenggara yang dikenal akan inovasi, kualitas, dan keandalannya.",
+    "mission_title": "Misi Kami",
+    "mission_1": "Menyediakan produk berkualitas tinggi secara konsisten.",
+    "mission_2": "Berinvestasi dalam teknologi dan sumber daya manusia.",
+    "mission_3": "Membangun kemitraan jangka panjang dengan pelanggan."
+  },
+  "services": {
+    "title": "Layanan Kami - PT Inti Logam Persada",
+    "meta": "Jelajahi layanan manufaktur logam kami, termasuk CNC Machining, Fabrikasi, Welding, dan Surface Finishing.",
+    "header": "Layanan Komprehensif Kami",
+    "cnc_title": "CNC Machining",
+    "cnc_desc": "Proses permesinan terkomputerisasi untuk membuat komponen kompleks dengan tingkat akurasi mikron.",
+    "sheet_title": "Sheet Metal Fabrication",
+    "sheet_desc": "Layanan pemotongan, penekukan, dan perakitan lembaran logam untuk berbagai aplikasi industri.",
+    "welding_title": "Welding & Assembly",
+    "welding_desc": "Jasa pengelasan profesional (MIG, TIG) dan perakitan akhir untuk konstruksi yang kokoh dan rapi.",
+    "finishing_title": "Surface Finishing",
+    "finishing_desc": "Menyediakan layanan finishing seperti powder coating, anodizing, dan polishing untuk estetika dan proteksi."
+  },
+  "portfolio": {
+    "title": "Portofolio - PT Inti Logam Persada",
+    "meta": "Lihat galeri proyek sukses kami di berbagai industri.",
+    "header": "Portofolio Proyek Kami",
+    "item1": "Komponen Otomotif",
+    "item2": "Rangka Mesin Industri",
+    "item3": "Panel Elektronik",
+    "item4": "Peralatan Medis",
+    "item5": "Braket Arsitektur",
+    "item6": "Prototipe Kustom"
+  },
+  "blog_page": {
+    "title": "Blog",
+    "description": "Baca artikel dan berita terbaru dari PT Inti Logam Persada.",
+    "header_title": "Blog & Berita Terbaru",
+    "header_subtitle": "Tetap terinformasi dengan wawasan dari industri kami.",
+    "read_more": "Baca Selengkapnya"
+  },
+  "latest_news_section": {
+    "title": "Berita Terbaru",
+    "view_all": "Lihat Semua Berita"
+  },
+  "profile": {
+    "title": "Profil Perusahaan",
+    "meta": "Pelajari lebih lanjut tentang profil, sejarah, dan pencapaian perusahaan kami.",
+    "desc": "PT Inti Logam Persada adalah perusahaan manufaktur logam terkemuka yang berkomitmen pada kualitas, inovasi, dan kepuasan pelanggan."
+  },
+  "vision_mission": {
+    "title": "Visi & Misi",
+    "meta": "Temukan visi dan misi kami sebagai mitra manufaktur terpercaya.",
+    "desc": "Visi kami adalah menjadi mitra terbaik di industri logam. Misi kami adalah memberikan produk dan layanan berkualitas tinggi melalui perbaikan dan inovasi berkelanjutan."
+  },
+  "values": {
+    "title": "Nilai Perusahaan",
+    "meta": "Nilai-nilai inti yang membentuk budaya dan layanan perusahaan kami.",
+    "desc": "Integritas, profesionalisme, inovasi, dan fokus pada pelanggan adalah nilai-nilai utama yang membimbing setiap aspek bisnis kami."
+  },
+  "csr": {
+    "title": "Program CSR",
+    "meta": "Komitmen kami terhadap tanggung jawab sosial dan lingkungan.",
+    "desc": "Kami berkomitmen untuk berkontribusi kepada masyarakat dan mendukung pembangunan berkelanjutan melalui berbagai inisiatif CSR.",
+    "item1": "Program sosial untuk masyarakat sekitar pabrik.",
+    "item2": "Inisiatif lingkungan dan edukasi berkelanjutan."
+  },
+  "pipe_fittings": {
+    "title": "Sambungan Pipa",
+    "meta": "Jelajahi berbagai sambungan pipa berkualitas tinggi untuk berbagai industri.",
+    "desc": "Kami menyediakan sambungan pipa yang tahan lama dan presisi untuk kebutuhan industri, konstruksi, dan infrastruktur."
+  },
+  "drainage": {
+    "title": "Drainase",
+    "meta": "Solusi drainase untuk proyek industri dan infrastruktur.",
+    "desc": "Produk drainase kami dirancang untuk aliran optimal dan performa tahan lama di berbagai lingkungan."
+  },
+  "construction": {
+    "title": "Konstruksi",
+    "meta": "Produk dan solusi logam untuk proyek konstruksi.",
+    "desc": "Kami mendukung proyek konstruksi dengan komponen logam yang andal dan solusi kustom."
+  },
+  "automotive": {
+    "title": "Otomotif",
+    "meta": "Komponen logam otomotif dan solusi industri otomotif.",
+    "desc": "Menyuplai komponen logam presisi untuk industri otomotif dengan standar kualitas tinggi."
+  },
+  "mining": {
+    "title": "Pertambangan",
+    "meta": "Produk logam untuk kebutuhan industri pertambangan.",
+    "desc": "Produk kami dibuat untuk menghadapi kondisi berat di sektor pertambangan."
+  },
+  "heavy_equipment": {
+    "title": "Alat Berat",
+    "meta": "Komponen dan solusi untuk manufaktur alat berat.",
+    "desc": "Kami memproduksi suku cadang yang kokoh dan andal untuk alat berat dan mesin industri."
+  },
+  "others": {
+    "title": "Lainnya",
+    "meta": "Produk logam lain dan solusi kustom.",
+    "desc": "Kami juga menyediakan produk logam kustom sesuai kebutuhan spesifik Anda."
+  },
+  "customers": {
+    "title": "Customer",
+    "meta": "Daftar pelanggan dan portofolio klien kami.",
+    "desc": "Kami dipercaya oleh perusahaan-perusahaan terkemuka dari berbagai industri sebagai mitra manufaktur mereka."
+  }
+}
