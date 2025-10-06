@@ -1,0 +1,18 @@
+# File: netlify.toml
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+
+[build]
+  # Perintah untuk membangun situs Anda
+  command = "npm run build"
+  
+  # Direktori yang akan diterbitkan setelah build selesai
+  publish = "dist"
+
+[build.environment]
+  # (Opsional tapi direkomendasikan) Tentukan versi Node.js
+  # Gunakan versi yang sama dengan yang Anda pakai di lokal
+  NODE_VERSION = "18"
