@@ -28,18 +28,14 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { title: 'Home', path: '/' },
-    {
-      title: 'About',
-      path: '/about',
-    },
-    {
-      title: 'Services',
-      path: '/services',
-    },
-    { title: 'Projects', path: '/projects' },
-    { title: 'Contact', path: '/contact' },
+    { title: 'Home', path: '/?hero' },
+    { title: 'About', path: '/?about' },
+    { title: 'Services', path: '/?services' },
+    { title: 'Projects', path: '/?projects' },
   ];
+
+  // Get current section from URL query
+  const currentSection = window.location.search.replace('?', '') || 'hero';
 
   return (
     <nav className={`sticky top-0 z-50 transition-colors duration-300 ${scrolled ? 'bg-[#181818]' : `${isOpen ? 'bg-black' : 'bg-transparent'}`}`} style={{overflow: 'visible'}}>
@@ -60,23 +56,23 @@ export default function Navbar() {
           />
         </>
       )}
-  <div
-    className={[
-      'w-full',
-      'max-w-screen-xl',
-      'mx-auto',
-      'py-4',
-      'relative',
-      'z-10',
-      'flex',
-      'items-center',
-      'justify-between',
-      'px-4',
-      'md:px-8',
-      'lg:px-20',
-      isOpen ? 'bg-black lg:bg-transparent' : '',
-    ].join(' ')}
-  >
+      <div
+        className={[
+          'w-full',
+          'max-w-screen-xl',
+          'mx-auto',
+          'py-3',
+          'relative',
+          'z-10',
+          'flex',
+          'items-center',
+          'justify-between',
+          'px-4',
+          'md:px-8',
+          'lg:px-20',
+          isOpen ? 'bg-black lg:bg-transparent' : '',
+        ].join(' ')}
+      >
         <div className="flex items-center justify-between h-20 w-full">
           {/* Mobile: Hamburger + Logo kiri */}
           <div className='flex items-center w-full lg:hidden justify-between mx-4 z-50 relative'>
@@ -90,7 +86,7 @@ export default function Navbar() {
               <button
                 className='px-4 py-2 rounded-lg bg-white text-black font-semibold text-sm z-50 relative'
               >
-                Start Project
+                Contact Now
               </button>
               <button
                 onClick={() => setIsOpen((prev) => !prev)}
@@ -117,32 +113,45 @@ export default function Navbar() {
             </div>
             <div className="hidden lg:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                {navLinks.map((link, idx) => (
-                  <div
-                    key={link.path}
-                    className="relative"
-                    onMouseEnter={() => setOpenDropdown(idx)}
-                    onMouseLeave={() => setOpenDropdown(null)}
-                    onFocus={() => setOpenDropdown(idx)}
-                    onBlur={(e) => {
-                      // close dropdown if focus leaves the dropdown
-                      if (!e.currentTarget.contains(e.relatedTarget)) setOpenDropdown(null);
-                    }}
-                  >
-                    <NavLink
-                      to={link.path}
-                      className={({ isActive }) =>
-                        `px-3 py-2 rounded-md text-xl font-medium transition-colors duration-300 ${
-                          isActive
-                            ? 'bg-[#828282]/50 text-white'
-                            : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
-                        }`
-                      }
+                {navLinks.map((link, idx) => {
+                  const section = link.path.split('?')[1];
+                  const isActive = currentSection === section;
+                  return (
+                    <div
+                      key={link.path}
+                      className="relative"
+                      onMouseEnter={() => setOpenDropdown(idx)}
+                      onMouseLeave={() => setOpenDropdown(null)}
+                      onFocus={() => setOpenDropdown(idx)}
+                      onBlur={(e) => {
+                        if (!e.currentTarget.contains(e.relatedTarget)) setOpenDropdown(null);
+                      }}
                     >
-                      {link.title}
-                    </NavLink>
-                  </div>
-                ))}
+                      <NavLink
+                        to={link.path}
+                        className={() =>
+                          `px-3 py-2 rounded-md text-xl font-medium transition-colors duration-300 ${
+                            isActive
+                              ? 'bg-[#828282]/50 text-white'
+                              : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                          }`
+                        }
+                        onClick={e => {
+                          if (link.path.startsWith('/?')) {
+                            e.preventDefault();
+                            window.history.replaceState(null, '', `/?${section}`);
+                            const el = document.getElementById(section);
+                            if (el) {
+                              el.scrollIntoView({ behavior: 'smooth' });
+                            }
+                          }
+                        }}
+                      >
+                        {link.title}
+                      </NavLink>
+                    </div>
+                  );
+                })}
               </div>
             </div>
             <div className="hidden lg:block">
@@ -150,7 +159,7 @@ export default function Navbar() {
                 <button
                   className='px-4 py-3 rounded-lg bg-white text-black font-semibold text-xl' 
                 >
-                  Start Project
+                  Contact Now
                 </button>
               </div>
             </div>
@@ -217,17 +226,30 @@ export default function Navbar() {
                         </AnimatePresence>
                       </>
                     ) : (
-                      <NavLink
-                        to={link.path}
-                        onClick={() => setIsOpen(false)}
-                        className={({ isActive }) =>
-                          `block px-4 py-3 rounded-md text-base font-medium text-left ${
-                            isActive ? 'bg-[#828282]/50 text-white' : 'text-gray-600 hover:bg-gray-100'
-                          }`
-                        }
-                      >
-                        {link.title}
-                      </NavLink>
+                      (() => {
+                        const section = link.path.split('?')[1];
+                        return <NavLink
+                          to={link.path}
+                          onClick={e => {
+                            setIsOpen(false);
+                            if (link.path.startsWith('/?')) {
+                              e.preventDefault();
+                              window.history.replaceState(null, '', `/?${section}`);
+                              const el = document.getElementById(section);
+                              if (el) {
+                                el.scrollIntoView({ behavior: 'smooth' });
+                              }
+                            }
+                          }}
+                          className={() =>
+                            `block px-4 py-3 rounded-md text-base font-medium text-left ${
+                              currentSection === section ? 'bg-[#828282]/50 text-white' : 'text-gray-600 hover:bg-gray-100'
+                            }`
+                          }
+                        >
+                          {link.title}
+                        </NavLink>;
+                      })()
                     )}
                   </div>
                 ))}
