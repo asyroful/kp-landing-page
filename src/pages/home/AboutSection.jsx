@@ -2,7 +2,7 @@ import imgAboutUs from "../../assets/image/img-aboutus.png";
 
 const AboutSection = () => {
   return (
-    <section id="about" className="pt-10 pb-20 bg-[#121212]">
+    <section id="about" className="pt-10 pb-20 bg-[#121212] scroll-mt-24">
       <div className="container mx-auto px-10 lg:px-20">
         {/* Judul Section */}
         <div className="text-3xl md:text-5xl font-semibold mb-12 text-white">

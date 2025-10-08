@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { CaretLeftIcon, CaretRightIcon, PlayIcon, FileTextIcon, VideoCameraIcon, FilmReelIcon } from "@phosphor-icons/react";
 
 const VideoModal = ({ open, onClose, iframeHtml }) => {
@@ -33,7 +33,7 @@ const ProjectCard = ({ project, onWatch }) => {
   const getResponsiveIframe = (iframeHtml) => {
     if (!iframeHtml) return null;
     // Default width for desktop
-    let width = 350;
+    let width = 360;
     if (typeof window !== 'undefined') {
       const w = window.innerWidth;
       if (w <= 340) width = 230;
@@ -44,7 +44,7 @@ const ProjectCard = ({ project, onWatch }) => {
     return iframeHtml.replace(/width=["']\d+["']/, `width="${width}"`);
   };
   return (
-    <div className="block text-white group hover:bg-[#1A1A1A] transition-colors rounded-lg">
+    <div className="block text-white group hover:bg-[#1A1A1A] transition-colors hover:rounded-lg">
       <div className="relative overflow-hidden mb-4">
         {/* Preview Proyek menggunakan YouTube iframe jika ada */}
         {isIframe ? (
@@ -88,6 +88,7 @@ const ProjectSection = () => {
   const [hoverIndex, setHoverIndex] = useState(null); // hovered index
   const [modalOpen, setModalOpen] = useState(false);
   const [modalIframe, setModalIframe] = useState('');
+  const [direction, setDirection] = useState(0); // 1: next, -1: prev
 
   // Data Proyek dengan iframe YouTube
   const projects = [
@@ -121,10 +122,12 @@ const ProjectSection = () => {
   let totalProjects = projects.length;
   // Navigation
   const goToPrev = () => {
+    setDirection(-1);
     setCurrentIndex((prev) => (prev - 1 + totalProjects) % totalProjects);
     setHoverIndex(null);
   };
   const goToNext = () => {
+    setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % totalProjects);
     setHoverIndex(null);
   };
@@ -186,7 +189,7 @@ const ProjectSection = () => {
   };
 
   return (
-    <section id="projects" className="pt-10 pb-20 bg-[#121212]">
+    <section id="projects" className="pt-10 pb-20 bg-[#121212] scroll-mt-24">
       <VideoModal open={modalOpen} onClose={handleCloseModal} iframeHtml={modalIframe} />
       <div className="container mx-auto px-4 sm:px-10 lg:px-20">
         {/* HEADER ROW */}
@@ -201,27 +204,34 @@ const ProjectSection = () => {
 
         {/* --- RESPONSIVE CAROUSEL --- */}
         <div className="flex items-center justify-center mb-10 relative" style={{ minHeight: 420 }}>
-          <div className="flex w-full justify-center overflow-hidden" style={{ maxWidth: '100%' }}>
-            {visibleProjects.map((project, idx) => {
-              const realIdx = start + idx;
-              const isActive = hoverIndex === realIdx || (hoverIndex === null && realIdx === currentIndex);
-              return (
-                <div
-                  key={realIdx}
-                  className={`transition-all duration-300 mx-2 ${
-                    isActive
-                      ? 'z-20 scale-100 opacity-100 shadow-2xl bg-[#1A1A1A]'
-                      : 'z-10 scale-90 opacity-60 cursor-pointer'
-                  }`}
-                  style={{ width: 370, minWidth: 0 }}
-                  onMouseEnter={() => handleCardMouseEnter(realIdx)}
-                  onMouseLeave={handleCardMouseLeave}
-                  onClick={() => setCurrentIndex(realIdx)}
-                >
-                  <ProjectCard project={project} onWatch={() => handleWatch(project.link)} />
-                </div>
-              );
-            })}
+          <div className="flex w-full justify-center gap-4 overflow-hidden" style={{ maxWidth: '100%' }}>
+            <AnimatePresence initial={false} mode="popLayout">
+              {visibleProjects.map((project, idx) => {
+                const realIdx = start + idx;
+                const isActive = hoverIndex === realIdx || (hoverIndex === null && realIdx === currentIndex);
+                return (
+                  <motion.div
+                    key={realIdx}
+                    className={`transition-all duration-300 ${
+                      isActive
+                        ? 'z-20 scale-100 opacity-100 shadow-2xl bg-[#1A1A1A]'
+                        : 'z-10 scale-90 opacity-60 cursor-pointer'
+                    }`}
+                    style={{ width: 370, minWidth: 0 }}
+                    onMouseEnter={() => handleCardMouseEnter(realIdx)}
+                    onMouseLeave={handleCardMouseLeave}
+                    onClick={() => setCurrentIndex(realIdx)}
+                    initial={{ opacity: 0, x: direction === 1 ? 80 : -80, scale: 0.95 }}
+                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                    exit={{ opacity: 0, x: direction === 1 ? -80 : 80, scale: 0.95 }}
+                    transition={{ duration: 0.6, ease: 'easeInOut' }}
+                    layout
+                  >
+                    <ProjectCard project={project} onWatch={() => handleWatch(project.link)} />
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
           </div>
         </div>
 

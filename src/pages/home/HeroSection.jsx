@@ -23,7 +23,7 @@ const HeroSection = () => {
   };
 
   return (
-    <div className="relative min-h-[70vh] md:min-h-[80vh] flex items-center justify-center overflow-hidden bg-[#121212] px-2 sm:px-4 pb-20">
+    <div id="hero" className="relative min-h-[70vh] md:min-h-[80vh] flex items-center justify-center overflow-hidden bg-[#121212] px-2 sm:px-4 pb-20 scroll-mt-28">
       <motion.div
         className="relative z-20 w-full max-w-3xl md:max-w-4xl lg:max-w-5xl mx-auto px-10 lg:px-0 text-left"
         initial="hidden"
