@@ -16,6 +16,6 @@
   # (Opsional tapi direkomendasikan) Tentukan versi Node.js
   # Gunakan versi yang sama dengan yang Anda pakai di lokal
   NODE_VERSION = "18"
-  VITE_EMAILJS_SERVICE_ID=service_kb8ssp8
-  VITE_EMAILJS_TEMPLATE_ID=template_s0ebo25
-  VITE_EMAILJS_PUBLIC_KEY=KHLHRRnk5l2CuDbFf
+  VITE_EMAILJS_SERVICE_ID = "service_kb8ssp8"
+  VITE_EMAILJS_TEMPLATE_ID = "template_s0ebo25"
+  VITE_EMAILJS_PUBLIC_KEY = "KHLHRRnk5l2CuDbFf"
