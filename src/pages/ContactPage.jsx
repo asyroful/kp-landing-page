@@ -36,20 +36,12 @@ const ContactInput = ({
       {required && <span className="text-red-500">*</span>}
     </label>
     {type === "select" ? (
-      <select
-        id={name}
+      <CustomSelect
         name={name}
         required={required}
-        className="w-full px-4 py-4 bg-black border border-transparent rounded-lg text-white placeholder-gray-500 focus:border-[#4B4B4B] focus:outline-none transition-colors z-10"
-        style={{ position: "relative" }}
-      >
-        <option value="">{placeholder}</option>
-        {categories.map((cat) => (
-          <option key={cat.id} value={cat.name}>
-            {cat.name}
-          </option>
-        ))}
-      </select>
+        placeholder={placeholder}
+        options={categories}
+      />
     ) : (
       <input
         type={type}
@@ -63,6 +55,65 @@ const ContactInput = ({
     )}
   </div>
 );
+
+// Custom Select Dropdown (fully styled, works on iPhone)
+function CustomSelect({ name, required, placeholder, options }) {
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState("");
+  const ref = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div ref={ref} className="relative w-full">
+      <input
+        type="hidden"
+        name={name}
+        value={selected}
+        required={required}
+      />
+      <button
+        type="button"
+        className={`w-full px-4 py-4 bg-black border border-transparent rounded-lg text-left text-white placeholder-gray-500 focus:border-[#4B4B4B] focus:outline-none transition-colors ${open ? "bg-[#2F2F2F]" : ""}`}
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+      >
+        {selected || <span className="text-[#7E7E7E]">{placeholder}</span>}
+        <span className="absolute right-4 top-1/2 -translate-y-1/2 text-white">▼</span>
+      </button>
+      {open && (
+        <ul
+          className="absolute z-20 mt-2 w-full bg-black border border-[#4B4B4B] rounded-lg shadow-lg max-h-60 overflow-auto"
+          role="listbox"
+        >
+          {options.map((cat) => (
+            <li
+              key={cat.id}
+              role="option"
+              aria-selected={selected === cat.name}
+              className={`px-4 py-3 cursor-pointer rounded-lg transition-colors ${selected === cat.name ? "bg-[#2F2F2F] text-white shadow-inner" : "text-[#7E7E7E] hover:text-white hover:bg-[#2F2F2F]"}`}
+              onClick={() => {
+                setSelected(cat.name);
+                setOpen(false);
+              }}
+            >
+              {cat.name}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
 
 // Komponen Textarea Reusable
 const ContactTextarea = ({ label, placeholder, required = true, name }) => (
