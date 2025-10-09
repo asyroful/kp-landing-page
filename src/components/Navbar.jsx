@@ -1,5 +1,5 @@
 
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logoMobile from '../assets/Logo-mobile.svg';
@@ -9,6 +9,7 @@ import starsRight from '../assets/stars-right.png';
 import { ListIcon, XIcon } from '@phosphor-icons/react';
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -36,6 +37,22 @@ export default function Navbar() {
 
   // Get current section from URL query
   const currentSection = window.location.search.replace('?', '') || 'hero';
+
+  // Helper for section navigation: go to home, set query, scroll
+  const goToSection = (section) => {
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        window.history.replaceState(null, '', `/?${section}`);
+        const el = document.getElementById(section);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100); // delay for page render
+    } else {
+      window.history.replaceState(null, '', `/?${section}`);
+      const el = document.getElementById(section);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <nav className={`sticky top-0 z-50 transition-colors duration-300 ${scrolled ? 'bg-[#181818]' : `${isOpen ? 'bg-black' : 'bg-transparent'}`}`} style={{overflow: 'visible'}}>
@@ -85,6 +102,7 @@ export default function Navbar() {
             <div className="flex items-center">
               <button
                 className='px-4 py-2 rounded-lg bg-white text-black font-semibold text-sm z-50 relative'
+                onClick={() => { navigate('/contact'); setIsOpen(false); }}
               >
                 Contact Now
               </button>
@@ -115,7 +133,7 @@ export default function Navbar() {
               <div className="ml-10 flex items-baseline space-x-4">
                 {navLinks.map((link, idx) => {
                   const section = link.path.split('?')[1];
-                  const isActive = currentSection === section;
+                  const isActive = location.pathname === '/' && currentSection === section;
                   return (
                     <div
                       key={link.path}
@@ -139,11 +157,7 @@ export default function Navbar() {
                         onClick={e => {
                           if (link.path.startsWith('/?')) {
                             e.preventDefault();
-                            window.history.replaceState(null, '', `/?${section}`);
-                            const el = document.getElementById(section);
-                            if (el) {
-                              el.scrollIntoView({ behavior: 'smooth' });
-                            }
+                            goToSection(section);
                           }
                         }}
                       >
@@ -158,6 +172,7 @@ export default function Navbar() {
               <div>
                 <button
                   className='px-4 py-3 rounded-lg bg-white text-black font-semibold text-xl' 
+                  onClick={() => { navigate('/contact'); setIsOpen(false); }}
                 >
                   Contact Now
                 </button>
@@ -228,22 +243,19 @@ export default function Navbar() {
                     ) : (
                       (() => {
                         const section = link.path.split('?')[1];
+                        const isActive = location.pathname === '/' && currentSection === section;
                         return <NavLink
                           to={link.path}
                           onClick={e => {
                             setIsOpen(false);
                             if (link.path.startsWith('/?')) {
                               e.preventDefault();
-                              window.history.replaceState(null, '', `/?${section}`);
-                              const el = document.getElementById(section);
-                              if (el) {
-                                el.scrollIntoView({ behavior: 'smooth' });
-                              }
+                              goToSection(section);
                             }
                           }}
                           className={() =>
                             `block px-4 py-3 rounded-md text-base font-medium text-left ${
-                              currentSection === section ? 'bg-[#828282]/50 text-white' : 'text-gray-600 hover:bg-gray-100'
+                              isActive ? 'bg-[#828282]/50 text-white' : 'text-gray-600 hover:bg-gray-100'
                             }`
                           }
                         >
