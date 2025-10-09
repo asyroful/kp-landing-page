@@ -34,12 +34,12 @@ const ProjectCard = ({ project, onWatch }) => {
   const getResponsiveIframe = (iframeHtml) => {
     if (!iframeHtml) return null;
     // Default width for desktop
-    let width = 360;
+    let width = 450;
     if (typeof window !== 'undefined') {
       const w = window.innerWidth;
       if (w <= 340) width = 230;
       else if (w <= 480) width = 375;
-      else if (w <= 640) width = 425;
+      else if (w <= 640) width = 450;
     }
     // Replace width attribute in iframe
     return iframeHtml.replace(/width=["']\d+["']/, `width="${width}"`);
@@ -124,13 +124,21 @@ const ProjectSection = () => {
   let totalProjects = projects.length;
   // Navigation
   const goToPrev = () => {
-    setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + totalProjects) % totalProjects);
+    setCurrentIndex((prev) => {
+      // If at first, next is last, direction left
+      if (prev === 0) setDirection(-1);
+      else setDirection(-1);
+      return (prev - 1 + totalProjects) % totalProjects;
+    });
     setHoverIndex(null);
   };
   const goToNext = () => {
-    setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % totalProjects);
+    setCurrentIndex((prev) => {
+      // If at last, next is first, direction right
+      if (prev === totalProjects - 1) setDirection(1);
+      else setDirection(1);
+      return (prev + 1) % totalProjects;
+    });
     setHoverIndex(null);
   };
 
@@ -206,31 +214,25 @@ const ProjectSection = () => {
 
         {/* --- RESPONSIVE CAROUSEL --- */}
         <div className="flex items-center justify-center mb-10 relative" style={{ minHeight: 420 }}>
-          <div className="flex w-full justify-center gap-4 overflow-hidden" style={{ maxWidth: '100%' }}>
+          <div className="flex w-full gap-4 overflow-hidden" style={{ maxWidth: '100%' }}>
             <AnimatePresence initial={false} mode="popLayout">
               {visibleProjects.map((project, idx) => {
                 const realIdx = start + idx;
                 const isActive = hoverIndex === realIdx || (hoverIndex === null && realIdx === currentIndex);
                 return (
-                  <motion.div
+                  <div
                     key={realIdx}
-                    className={`transition-all duration-300 ${
+                    className={`transition-all duration-300 flex-1 min-w-0 ${
                       isActive
                         ? 'z-20 scale-100 opacity-100 shadow-2xl bg-[#1A1A1A]'
                         : 'z-10 scale-90 opacity-60 cursor-pointer'
                     }`}
-                    style={{ width: 370, minWidth: 0 }}
                     onMouseEnter={() => handleCardMouseEnter(realIdx)}
                     onMouseLeave={handleCardMouseLeave}
                     onClick={() => setCurrentIndex(realIdx)}
-                    initial={{ opacity: 0, x: direction === 1 ? 80 : -80, scale: 0.95 }}
-                    animate={{ opacity: 1, x: 0, scale: 1 }}
-                    exit={{ opacity: 0, x: direction === 1 ? -80 : 80, scale: 0.95 }}
-                    transition={{ duration: 0.6, ease: 'easeInOut' }}
-                    layout
                   >
                     <ProjectCard project={project} onWatch={() => handleWatch(project.link)} />
-                  </motion.div>
+                  </div>
                 );
               })}
             </AnimatePresence>
