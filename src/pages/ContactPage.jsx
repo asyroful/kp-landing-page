@@ -1,10 +1,22 @@
 import { ArrowUpRightIcon } from "@phosphor-icons/react"; // Ikon panah untuk tombol submit
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
 
 // Konstanta untuk Font Size Responsif (Desktop 4px lebih besar dari Mobile)
 // Contoh: Mobile text-base (16px), Desktop text-xl (20px)
 const TEXT_LG_RESPONSIVE = "text-base lg:text-xl";
 // Contoh: Mobile text-sm (14px), Desktop text-lg (18px)
 const TEXT_MD_RESPONSIVE = "text-sm lg:text-lg";
+
+// List kategori untuk select project type
+const categories = [
+  { name: "Branded Content", id: "Branded Content" },
+  { name: "Brand Films", id: "Brand Films" },
+  { name: "Photography", id: "Photography" },
+  { name: "Recap Films", id: "Recap Films" },
+  { name: "Short Documentary", id: "Short Documentary" },
+];
 
 // Komponen Input Field Reusable
 const ContactInput = ({
@@ -15,8 +27,11 @@ const ContactInput = ({
   name,
   className = "",
 }) => (
-  <div className={`space-y-2 ${className}`}>
-    <label htmlFor={name} className="text-white text-base font-semibold">
+  <div className={`flex flex-col gap-2 ${className}`}>
+    <label
+      htmlFor={name}
+      className="text-white text-base font-semibold mb-1 cursor-pointer"
+    >
       {label}
       {required && <span className="text-red-500">*</span>}
     </label>
@@ -25,12 +40,15 @@ const ContactInput = ({
         id={name}
         name={name}
         required={required}
-        className="w-full px-4 py-4 bg-black border border-transparent rounded-lg text-white placeholder-gray-500 focus:border-[#4B4B4B] focus:outline-none transition-colors"
+        className="w-full px-4 py-4 bg-black border border-transparent rounded-lg text-white placeholder-gray-500 focus:border-[#4B4B4B] focus:outline-none transition-colors z-10"
+        style={{ position: "relative" }}
       >
         <option value="">{placeholder}</option>
-        <option value="Branded Content">Branded Content</option>
-        <option value="Brand Films">Brand Films</option>
-        <option value="Other">Other</option>
+        {categories.map((cat) => (
+          <option key={cat.id} value={cat.name}>
+            {cat.name}
+          </option>
+        ))}
       </select>
     ) : (
       <input
@@ -39,7 +57,8 @@ const ContactInput = ({
         name={name}
         placeholder={placeholder}
         required={required}
-        className="w-full px-4 py-4 bg-black border border-transparent rounded-lg text-white placeholder-gray-500 focus:border-[#4B4B4B] focus:outline-none transition-colors"
+        className="w-full px-4 py-4 bg-black border border-transparent rounded-lg text-white placeholder-gray-500 focus:border-[#4B4B4B] focus:outline-none transition-colors z-10"
+        style={{ position: "relative" }}
       />
     )}
   </div>
@@ -47,8 +66,8 @@ const ContactInput = ({
 
 // Komponen Textarea Reusable
 const ContactTextarea = ({ label, placeholder, required = true, name }) => (
-  <div className="space-y-2">
-    <label htmlFor={name} className="text-white text-base font-semibold">
+  <div className="flex flex-col gap-2">
+    <label htmlFor={name} className="text-white text-base font-semibold mb-1">
       {label}
       {required && <span className="text-red-500">*</span>}
     </label>
@@ -57,22 +76,79 @@ const ContactTextarea = ({ label, placeholder, required = true, name }) => (
       name={name}
       placeholder={placeholder}
       required={required}
-      rows={6} // Sesuaikan tinggi sesuai Figma
+      rows={6}
       className="w-full px-4 py-4 bg-black border border-transparent rounded-lg text-white placeholder-gray-500 focus:border-[#4B4B4B] focus:outline-none transition-colors resize-none"
     />
   </div>
 );
 
 export default function ContactPage() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  const form = useRef(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    setMessage("");
+
+    const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    emailjs
+      .sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY)
+      .then(
+        (result) => {
+          setMessage("Message sent successfully!");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          if (form.current) form.current.reset();
+        },
+        (error) => {
+          setMessage("Failed to send message. Please try again.");
+        }
+      )
+      .finally(() => {
+        setIsSubmitting(false);
+      });
+  };
+
+  // Helper to format date as dd/MM/yyyy
+  const getCurrentDate = () => {
+    const d = new Date();
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   return (
-    <div className="bg-[#121212] min-h-screen text-white pt-10 pb-20">
-      <div className="container mx-auto px-4 sm:px-10 lg:px-20">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="bg-[#121212] min-h-screen text-white pt-10 pb-20"
+    >
+      <div className="container mx-auto px-6 sm:px-10 lg:px-20">
         {/* --- JUDUL SECTION --- */}
         <div className="text-3xl md:text-5xl font-semibold mb-12 lg:mb-16">
           Get in <span className="text-[#828282]">Touch</span>
         </div>
 
-        <form className="mx-auto space-y-8">
+        {message && (
+          <div className={`mb-6 text-center font-semibold ${message.includes("success") ? "text-green-400" : "text-red-400"}`}>
+            {message}
+          </div>
+        )}
+
+        <form ref={form} className="mx-auto space-y-8" onSubmit={sendEmail}>
+          {/* Hidden field for submittedAt */}
+          <input type="hidden" name="submittedAt" value={getCurrentDate()} />
           {/* --- BARIS 1: Nama Depan & Nama Belakang (Grid di Desktop, Stack di Mobile) --- */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <ContactInput
@@ -121,13 +197,14 @@ export default function ContactPage() {
             <button
               type="submit"
               className="flex items-center px-8 py-4 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition-colors"
+              disabled={isSubmitting}
             >
-              Submit
+              {isSubmitting ? "Sending..." : "Submit"}
               <ArrowUpRightIcon size={20} weight="bold" className="ml-2" />
             </button>
           </div>
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 }

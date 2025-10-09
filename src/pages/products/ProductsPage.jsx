@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FileTextIcon, FilmReelIcon, VideoCameraIcon } from "@phosphor-icons/react";
 
@@ -44,6 +44,9 @@ function ProjectCard({ project, onClick }) {
 
 export default function ProductsPage() {
   const navigate = useNavigate();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   // State untuk mengontrol tampilan dropdown mobile
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   // State kategori aktif
@@ -107,7 +110,13 @@ export default function ProductsPage() {
   ];
 
   return (
-    <section id="completed-projects" className="py-20 bg-[#121212]">
+    <motion.section
+      id="completed-projects"
+      className="py-20 bg-[#121212]"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="container mx-auto px-4 sm:px-10 lg:px-20">
         {/* Judul Section */}
         <div className="text-3xl md:text-5xl font-semibold mb-8 text-white">
@@ -227,6 +236,6 @@ export default function ProductsPage() {
           </div>
         </div>
       </div>
-    </section>
+  </motion.section>
   );
 }

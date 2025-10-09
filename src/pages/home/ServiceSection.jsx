@@ -57,9 +57,9 @@ const AccordionHeader = ({ isOpen, index, title, onClick }) => (
     transition={{ duration: 0.3, type: "tween" }}
   >
     <div
-      className={`grid grid-cols-4 items-center cursor-pointer transition-all p-3 lg:p-6 ${isOpen ? "hidden" : "mb-0"}`}
+      className="flex justify-between items-center cursor-pointer transition-all p-3 lg:p-6 mb-0"
     >
-      <div className="col-span-3 flex items-center gap-4 lg:gap-6">
+      <div className="flex items-center gap-6">
         <motion.div className="bg-[#292929] px-4 py-2 item-center rounded-xl w-fit text-white font-normal text-lg" layout>
           {String(index + 1).padStart(2, "0")}
         </motion.div>
@@ -67,22 +67,9 @@ const AccordionHeader = ({ isOpen, index, title, onClick }) => (
           {title}
         </motion.div>
       </div>
-      {/* Arrow for mobile: always show */}
-      <motion.span className="flex lg:hidden mr-4 items-center" animate={{ rotate: isOpen ? 0 : 180 }} transition={{ duration: 0.4 }}>
+      <motion.span className="flex mr-4 lg:mr-6 items-center justify-end" animate={{ rotate: isOpen ? 0 : 180 }} transition={{ duration: 0.4 }}>
         <ArrowUpIcon size={32} className="transition-transform duration-300 text-white" />
       </motion.span>
-      {/* Arrow for desktop: only when closed */}
-      {!isOpen && (
-        <motion.div 
-          className="hidden lg:flex mr-6 items-center justify-end"
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -16 }}
-          transition={{ duration: 0.35, ease: "easeOut" }}
-        >
-          <ArrowDownIcon size={40} className="transition-transform duration-300 text-white" />
-        </motion.div>
-      )}
     </div>
   </motion.div>
 );
@@ -103,30 +90,6 @@ const AccordionContent = ({ isOpen, index, service, onClick }) => (
       transition={{ duration: 0.4, delay: isOpen ? 0.1 : 0 }}
     >
       <div className="col-span-3 lg:col-span-2">
-        <div className="grid grid-cols-3 items-center py-3 lg:py-6 gap-4 lg:gap-6">
-          <div className="col-span-2 flex gap-4 items-center">
-            <motion.div className="bg-[#292929] px-4 py-2 item-center rounded-xl w-fit text-white font-normal text-lg" layout>
-              {String(index + 1).padStart(2, "0")}
-            </motion.div>
-            <motion.div className="text-white text-xl font-medium lg:text-2xl" layout>
-              {service.title}
-            </motion.div>
-          </div>
-          <div className="flex justify-end lg:hidden">
-            <motion.span
-              initial={false}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4 }}
-            >
-              <motion.span
-                animate={{ rotate: isOpen ? 180 : 0 }}
-                transition={{ duration: 0.4 }}
-              >
-                <ArrowUpIcon size={40} className="transition-transform duration-300 text-white" />
-              </motion.span>
-            </motion.span>
-          </div>
-        </div>
         <div className="mb-8">
           <div className="text-xl lg:text-2xl text-[#828282] text-normal">{service.description}</div>
         </div>
@@ -164,13 +127,6 @@ const AccordionContent = ({ isOpen, index, service, onClick }) => (
           animate={isOpen ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.4, delay: isOpen ? 0.15 : 0 }}
         />
-        {isOpen && (
-          <motion.span className="left-full ml-10 flex items-center" initial={{ opacity: 0, x: 20, rotate: 0 }} animate={{ opacity: 1, x: 0, rotate: 180 }} exit={{ opacity: 0, x: 20, rotate: 0 }} transition={{ duration: 0.4, delay: 0.2 }}>
-            <motion.span animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.4 }}>
-              <ArrowUpIcon size={40} className="transition-transform duration-300 text-white" />
-            </motion.span>
-          </motion.span>
-        )}
       </div>
     </motion.div>
   </motion.div>

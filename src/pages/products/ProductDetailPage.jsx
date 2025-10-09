@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { motion } from "framer-motion";
 import { CaretLeftIcon } from "@phosphor-icons/react";
 
 // --- DATA DUMMY PROYEK UNTUK DEMO ---
@@ -114,7 +115,12 @@ export default function ProductDetailPage() {
   );
 
   return (
-    <div className="bg-[#121212] text-white pt-10 pb-20">
+    <motion.div
+      className="bg-[#121212] text-white pt-10 pb-20"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="container mx-auto px-4 sm:px-10 lg:px-20">
         {/* --- HEADER DAN JUDUL --- */}
         <div className="flex items-center mb-12 md:mb-16">
@@ -230,6 +236,6 @@ export default function ProductDetailPage() {
           </div>
         </div>
       </div>
-    </div>
+  </motion.div>
   );
 }
