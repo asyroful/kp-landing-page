@@ -1,195 +1,241 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { productCategories } from '../../data/productsData';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { FileTextIcon, FilmReelIcon, VideoCameraIcon } from "@phosphor-icons/react";
 
-// Gunakan CSS line-clamp, tidak perlu JS truncate panjang deskripsi
+// Asumsi Anda menggunakan Phosphor Icons
+// Simple ProjectCard for ProductsPage
+function slugify(str) {
+  return str
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
 
-export default function ProductsPage() {
-  const { t } = useTranslation();
-  const params = useParams();
-  const navigate = useNavigate();
-  const categories = productCategories;
-  // Ambil kategori dari params jika ada
-  const urlCategory = params.category || 'all';
-  const [selected, setSelected] = useState(urlCategory);
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    setSelected(urlCategory);
-    setLoading(true);
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [urlCategory]);
-
-  const allProducts = categories.flatMap((cat) =>
-    cat.products.map((p) => ({
-      ...p,
-      _categoryKey: cat.key,
-      _categoryName: cat.name,
-    }))
-  );
-  const filteredProducts =
-    selected === "all"
-      ? allProducts
-      : allProducts.filter((p) => p._categoryKey === selected);
-
-  const handleCategoryClick = (key) => {
-    setLoading(true);
-    if (key === "all") {
-      navigate("/products");
-    } else {
-      navigate(`/products/${key}`);
-    }
-  };
-
+function ProjectCard({ project, onClick }) {
   return (
-    <div className="container mx-auto px-4 py-12">
-      {/* Breadcrumbs */}
-      <nav className="text-sm text-gray-500 mb-2" aria-label="Breadcrumb">
-        <ol className="list-none flex flex-wrap gap-1 items-center">
-          <li>
-            <Link
-              to="/products"
-              className="hover:underline text-red-600 font-semibold"
-            >
-              {t('navbar.products')}
-            </Link>
-          </li>
-          {selected !== 'all' && (
-            <>
-              <li className="mx-1">&#8226;</li>
-              <li className="text-gray-800 font-bold">
-                {t(
-                  `navbar.${categories.find((c) => c.key === selected)?.key}`
-                ) ||
-                  categories.find((c) => c.key === selected)?.name ||
-                  ""}
-              </li>
-            </>
-          )}
-        </ol>
-      </nav>
-      <div className="mb-8">
-        <h1 className="text-3xl md:text-5xl font-bold mb-2">
-          {t('navbar.products')}
-        </h1>
-        <p className="text-gray-600">
-          {t('products_page.intro')}
-        </p>
+    <div
+      className="rounded-xl overflow-hidden shadow hover:bg-[#1A1A1A] transition-colors cursor-pointer text-white"
+      onClick={onClick}
+      tabIndex={0}
+      role="button"
+      onKeyDown={e => {
+        if (e.key === 'Enter' || e.key === ' ') onClick();
+      }}
+    >
+      <div className="relative w-full aspect-video flex items-center justify-center">
+        {/* Preview Proyek menggunakan YouTube iframe jika ada */}
+        {typeof project.link === 'string' && project.link.trim().startsWith('<iframe') ? (
+          <div className="w-full flex items-center justify-center" dangerouslySetInnerHTML={{ __html: project.link }} />
+        ) : (
+          <div className="text-white">No Preview</div>
+        )}
       </div>
-      {/* Dropdown Mobile */}
-      <div className="w-full mb-6 lg:hidden">
-        <select
-          className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500"
-          value={selected}
-          onChange={(e) => handleCategoryClick(e.target.value)}
-        >
-          <option value="all">{t("products_page.all", "All Products")}</option>
-          {categories.map((cat) => (
-            <option key={cat.key} value={cat.key}>
-              {t(`navbar.${cat.key}`) || cat.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="flex gap-8">
-        {/* Sidebar Desktop */}
-        <aside className="w-64 shrink-0 hidden lg:block">
-          <nav className="bg-white rounded-lg shadow p-4 sticky top-24">
-            <ul className="space-y-2">
-              <li>
-                <button
-                  onClick={() => handleCategoryClick('all')}
-                  className={`w-full text-left px-3 py-2 rounded ${
-                    selected === 'all'
-                      ? 'bg-red-600 text-white'
-                      : 'hover:bg-gray-100'
-                  }`}
-                >
-                  {t('products_page.all')}
-                </button>
-              </li>
-              {categories.map((cat) => (
-                <li key={cat.key}>
-                  <button
-                    onClick={() => handleCategoryClick(cat.key)}
-                    className={`w-full text-left px-3 py-2 rounded ${
-                      selected === cat.key
-                        ? "bg-red-600 text-white"
-                        : "hover:bg-gray-100"
-                    }`}
-                  >
-                    {t(`navbar.${cat.key}`) || cat.name}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </aside>
-        {/* Product Grid */}
-        <main className="flex-1">
-          {loading ? (
-            <div className="flex justify-center items-center h-64">
-              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-red-600"></div>
-            </div>
-          ) : (
-            <motion.div
-              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: {},
-                visible: {
-                  transition: {
-                    staggerChildren: 0.08,
-                  },
-                },
-              }}
-            >
-              <AnimatePresence>
-                {filteredProducts.map((product) => (
-                  <motion.div
-                    key={product.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 30 }}
-                    transition={{ duration: 0.4, type: 'spring', bounce: 0.2 }}
-                    className="bg-white rounded-lg shadow overflow-hidden flex flex-col"
-                  >
-                    <Link
-                      to={`/products/${product._categoryKey}/${product.id}`}
-                      className="block"
-                    >
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="h-48 w-full object-contain bg-gray-50"
-                      />
-                    </Link>
-                    <div className="p-4 flex-1 flex flex-col">
-                      <h2 className="text-lg font-bold mb-2 line-clamp-2">
-                        {product.name}
-                      </h2>
-                      <p className="text-gray-600 text-sm mb-4 flex-1 line-clamp-3">
-                        {product.description}
-                      </p>
-                      <Link
-                        to={`/products/${product._categoryKey}/${product.id}`}
-                        className="mt-auto inline-block text-red-600 font-semibold hover:underline"
-                      >
-                        {t('products_page.button_view')}
-                      </Link>
-                    </div>
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </motion.div>
-          )}
-        </main>
+      <div className="m-4">
+        <div className="text-lg font-semibold mb-6">{project.title}</div>
+        <div className="flex items-center gap-2 text-sm text-[#bdbdbd]">
+          {project.category.icon && <project.category.icon size={18} />}
+          {project.category.name}
+        </div>
       </div>
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+  // State untuk mengontrol tampilan dropdown mobile
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  // State kategori aktif
+  const [activeCategoryName, setActiveCategoryName] = useState("All Project");
+
+  const categories = [
+    { name: "All Project", id: 1 },
+    { name: "Branded Content", id: 2 },
+    { name: "Brand Films", id: 3 },
+    { name: "Photography", id: 4 },
+    { name: "Recap Films", id: 5 },
+    { name: "Short Documentary", id: 6 },
+  ];
+  // State kategori aktif
+  const [activeCategoryId, setActiveCategoryId] = useState(1);
+  // State untuk show all project di mobile
+  const [showAllMobile, setShowAllMobile] = useState(false);
+
+  // Handler untuk navigasi/filter
+  const handleCategoryClick = (categoryId) => {
+    const selected = categories.find((cat) => cat.id === categoryId);
+    if (selected) {
+      setActiveCategoryId(categoryId);
+      setActiveCategoryName(selected.name);
+    }
+    setIsMobileMenuOpen(false);
+    setShowAllMobile(false); // Reset show all when category changes
+  };
+
+  const projects = [
+    {
+      title: "Red Bull",
+      link: '<iframe width="520" height="315" src="https://www.youtube.com/embed/ktEvYj_nB00?si=9G2u9xSkMlw-IRJ1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+      category: { id: 6, name: "Short Documentary", icon: FileTextIcon },
+    },
+    {
+      title: "Solomon",
+      link: '<iframe width="520" height="315" src="https://www.youtube.com/embed/Z-iRGv_w0OM?si=s3iC86wR2vBDhlsP" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+      category: { id: 2, name: "Branded Content", icon: VideoCameraIcon },
+    },
+    {
+      title: "GoPro",
+      link: '<iframe width="520" height="315" src="https://www.youtube.com/embed/PM0RsJKs6Wg?si=JJUL9XFKc05JrI04" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+      category: { id: 5, name: "Recap Films", icon: FilmReelIcon },
+    },
+    {
+      title: "THE",
+      link: '<iframe width="520" height="315" src="https://www.youtube.com/embed/ktEvYj_nB00?si=9G2u9xSkMlw-IRJ1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+      category: { id: 6, name: "Short Documentary", icon: FileTextIcon },
+    },
+    {
+      title: "Red Bull",
+      link: '<iframe width="520" height="315" src="https://www.youtube.com/embed/PM0RsJKs6Wg?si=JJUL9XFKc05JrI04" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+      category: { id: 3, name: "Brand Films", icon: VideoCameraIcon },
+    },
+    {
+      title: "GoPro",
+      link: '<iframe width="520" height="315" src="https://www.youtube.com/embed/PM0RsJKs6Wg?si=JJUL9XFKc05JrI04" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+      category: { id: 5, name: "Recap Films", icon: FilmReelIcon },
+    }
+  ];
+
+  return (
+    <motion.section
+      id="completed-projects"
+      className="py-20 bg-[#121212]"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
+      <div className="container mx-auto px-4 sm:px-10 lg:px-20">
+        {/* Judul Section */}
+        <div className="text-3xl md:text-5xl font-semibold mb-8 text-white">
+          Completed <span className="text-[#828282]">Projects</span>
+        </div>
+
+        {/* --- 1. DESKTOP FILTER BAR (lg:flex) --- */}
+        <div
+          className="hidden lg:flex p-1 bg-black rounded-full w-fit mb-12"
+          style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)" }}
+        >
+          {categories.map((cat) => {
+            const isActive = cat.id === activeCategoryId;
+            return (
+              <button
+                key={cat.id}
+                onClick={() => handleCategoryClick(cat.id)}
+                type="button"
+                className={`
+                  text-base px-6 py-3 rounded-full transition-all duration-200 whitespace-nowrap pointer-events-auto
+                  ${isActive
+                    ? "bg-[#2F2F2F] text-white shadow-inner"
+                    : "text-[#7E7E7E] hover:text-white hover:bg-[#2F2F2F] focus:bg-[#2F2F2F] focus:text-white"}
+                `}
+                style={{ zIndex: 10 }}
+                tabIndex={0}
+              >
+                {cat.name}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* --- 2. MOBILE FILTER (Dropdown/Sidebar) --- */}
+        <div className="grid grid-cols-1 gap-1 lg:hidden mb-10 bg-black p-1 rounded-[32px]">
+          {categories.map((cat) => {
+            const isActive = cat.id === activeCategoryId;
+            return (
+              <div
+                key={cat.id}
+                onClick={() => handleCategoryClick(cat.id)}
+                className={`
+                  flex justify-between items-center px-6 py-4 cursor-pointer 
+                  text-base transition-colors duration-200 select-none rounded-[999px]
+                  pointer-events-auto
+                  ${isActive
+                    ? "bg-[#2F2F2F] text-white shadow-inner"
+                    : "text-[#7E7E7E] hover:text-white hover:bg-[#2F2F2F] focus:bg-[#2F2F2F] focus:text-white"}
+                `}
+                style={{ zIndex: 10 }}
+                tabIndex={0}
+                role="button"
+                onKeyDown={e => {
+                  if (e.key === 'Enter' || e.key === ' ') handleCategoryClick(cat.id);
+                }}
+              >
+                {cat.name}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* --- PROJECT GRID AKAN DITEMPATKAN DI SINI --- */}
+        {/* Gantilah ini dengan komponen grid proyek Anda */}
+        <div className="min-h-[400px] rounded-xl p-6">
+          {/* Mobile: show 2 cards, then button to show all */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {(() => {
+              const filtered = projects.filter(p => activeCategoryId === 1 || p.category.id === activeCategoryId);
+              // Check if mobile view
+              const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
+              if (isMobile) {
+                if (showAllMobile) {
+                  return filtered.map((project, idx) => (
+                    <ProjectCard
+                      key={idx}
+                      project={project}
+                      onClick={() => navigate(`/project/${slugify(project.title)}`)}
+                    />
+                  ));
+                }
+                // Only show 2 cards on mobile
+                return filtered.slice(0, 2).map((project, idx) => (
+                  <ProjectCard
+                    key={idx}
+                    project={project}
+                    onClick={() => navigate(`/project/${slugify(project.title)}`)}
+                  />
+                ));
+              }
+              // Desktop: show all filtered
+              return filtered.map((project, idx) => (
+                <ProjectCard
+                  key={idx}
+                  project={project}
+                  onClick={() => navigate(`/project/${slugify(project.title)}`)}
+                />
+              ));
+            })()}
+          </div>
+          {/* Button only on mobile and if more than 2 cards and not showing all */}
+          <div className="mt-8 flex lg:hidden">
+            {(() => {
+              const filtered = projects.filter(p => activeCategoryId === 1 || p.category.id === activeCategoryId);
+              if (!showAllMobile && filtered.length > 2) {
+                return (
+                  <button
+                    className="w-full border border-white outline outline-1 outline-white rounded-lg py-3 text-white font-semibold text-base hover:bg-[#232323] transition-colors"
+                    onClick={() => setShowAllMobile(true)}
+                  >
+                    See All Project
+                  </button>
+                );
+              }
+              return null;
+            })()}
+          </div>
+        </div>
+      </div>
+  </motion.section>
   );
 }

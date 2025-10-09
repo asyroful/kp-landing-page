@@ -45,20 +45,20 @@ function App() {
         <MainLayout>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/project" element={<ProductsPage />} />
+            <Route path="/project/:slug" element={<ProductDetailPage />} />
+            <Route path="/contact" element={<ContactPage />} />
             {/* <Route path="/about" element={<AboutPage />} />
             <Route path="/about/profile" element={<ProfilePage />} />
             <Route path="/about/vision-mission" element={<VisionMissionPage />} />
             <Route path="/about/values" element={<ValuesPage />} />
             <Route path="/about/csr" element={<CsrPage />} />
-            <Route path="/products" element={<ProductsPage />} />
             <Route path="/products/:category" element={<ProductsPage />} />
-            <Route path="/products/:category/:slug" element={<ProductDetailPage />} />
             <Route path="/customers" element={<CustomersPage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/portfolio" element={<PortfolioPage />} />
             <Route path="/blog" element={<BlogPage />} />
-            <Route path="/blog/:slug" element={<SinglePostPage />} />
-            <Route path="/contact" element={<ContactPage />} /> */}
+            <Route path="/blog/:slug" element={<SinglePostPage />} /> */}
           </Routes>
           {/* Floating Scroll to Top Button */}
           {showScroll && (

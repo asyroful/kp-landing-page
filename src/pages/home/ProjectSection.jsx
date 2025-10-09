@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CaretLeftIcon, CaretRightIcon, PlayIcon, FileTextIcon, VideoCameraIcon, FilmReelIcon } from "@phosphor-icons/react";
+import { useNavigate } from "react-router-dom";
 
 const VideoModal = ({ open, onClose, iframeHtml }) => {
   if (!open) return null;
@@ -84,6 +85,7 @@ const ProjectCard = ({ project, onWatch }) => {
 };
 
 const ProjectSection = () => {
+  const navigate = useNavigate();
   const [currentIndex, setCurrentIndex] = useState(0); // navigated/selected index
   const [hoverIndex, setHoverIndex] = useState(null); // hovered index
   const [modalOpen, setModalOpen] = useState(false);
@@ -197,7 +199,7 @@ const ProjectSection = () => {
           <div className="text-3xl md:text-5xl font-semibold text-white">
             Featured <span className="text-[#828282]">Project</span>
           </div>
-          <button className="w-full sm:w-auto px-4 py-2 md:px-6 md:py-3 rounded-lg bg-white text-black font-semibold text-sm md:text-base hover:bg-gray-200 transition-colors">
+          <button onClick={() => navigate('/project')} className="w-full sm:w-auto px-4 py-2 md:px-6 md:py-3 rounded-lg bg-white text-black font-semibold text-sm md:text-base hover:bg-gray-200 transition-colors">
             See All Project
           </button>
         </div>
