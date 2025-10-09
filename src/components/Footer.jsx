@@ -3,15 +3,15 @@ import logoDark from '../assets/logo-footer.svg';
 // Data navigasi untuk mempermudah maintenance
 const informationLinks = [
   { name: 'Home', href: '/' },
-  { name: 'About Us', href: '/about' },
+  { name: 'About Us', href: '#about', scroll: true },
   { name: 'Project', href: '/project' },
-  { name: 'Services', href: '/services' },
+  { name: 'Services', href: '#services', scroll: true },
   { name: 'Contact Us', href: '/contact' },
 ];
 
 const socialMediaLinks = [
   { name: 'Instagram', href: 'https://instagram.com/kevinoliveri' },
-  { name: 'Youtube', href: 'https://youtube.com/kevinoliveri' },
+  { name: 'Youtube', href: 'https://www.youtube.com/@Kevin.Oliveri' },
   { name: 'Vimeo', href: 'https://vimeo.com/kevinoliveri' },
 ];
 
@@ -61,12 +61,25 @@ const Footer = () => {
               <ul className="space-y-3">
                 {informationLinks.map((link) => (
                   <li key={link.name}>
-                    <a 
-                      href={link.href} 
-                      className="text-white font-normal transition-colors text-base lg:text-lg"
-                    >
-                      {link.name}
-                    </a>
+                    {link.scroll ? (
+                      <button
+                        type="button"
+                        className="text-white font-normal transition-colors text-base lg:text-lg bg-transparent p-0 m-0 outline-none border-none cursor-pointer"
+                        onClick={() => {
+                          const el = document.getElementById(link.href.replace('#', ''));
+                          if (el) el.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                      >
+                        {link.name}
+                      </button>
+                    ) : (
+                      <a
+                        href={link.href}
+                        className="text-white font-normal transition-colors text-base lg:text-lg"
+                      >
+                        {link.name}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>

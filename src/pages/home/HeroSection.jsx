@@ -6,13 +6,14 @@ import logoThe from "../../assets/logo-project/The logo.svg";
 import logoSalomon from "../../assets/logo-project/Logo_Salomon logo.svg";
 import logoGo from "../../assets/logo-project/Go logo.svg";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
   const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const navigate = useNavigate();
 
   const handleGetInTouch = () => {
-    window.location.href = "mailto:your@email.com";
+    navigate('/contact');
   };
 
   const handleSeeMyWork = () => {
@@ -25,7 +26,7 @@ const HeroSection = () => {
   return (
     <div id="hero" className="relative min-h-[70vh] md:min-h-[80vh] flex items-center justify-center overflow-hidden bg-[#121212] px-2 sm:px-4 pb-20 scroll-mt-28">
       <motion.div
-        className="relative z-20 w-full max-w-3xl md:max-w-4xl lg:max-w-6xl mx-auto px-10 lg:px-0 text-left"
+        className="relative z-20 w-full max-w-3xl md:max-w-4xl lg:max-w-5xl mx-auto px-10 lg:px-0 text-left"
         initial="hidden"
         animate="visible"
         variants={{
@@ -71,7 +72,7 @@ const HeroSection = () => {
           }}
         >
           <button
-            onClick={handleGetInTouch}
+            onClick={() => navigate('/contact')}
             className="px-6 sm:px-8 py-3 rounded-lg bg-white text-black font-semibold text-lg md:text-xl hover:bg-gray-200 transition-colors"
           >
             Get In Touch
