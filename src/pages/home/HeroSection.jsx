@@ -1,5 +1,4 @@
-import React from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import profileImage from "../../assets/profileImage.png";
 import logoRB from "../../assets/logo-project/redbullcom-1 logo.svg";
 import logoThe from "../../assets/logo-project/The logo.svg";
@@ -9,12 +8,7 @@ import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
-  const { scrollYProgress } = useScroll();
   const navigate = useNavigate();
-
-  const handleGetInTouch = () => {
-    navigate('/contact');
-  };
 
   const handleSeeMyWork = () => {
     const nextSection = document.getElementById("projects");

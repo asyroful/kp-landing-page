@@ -1,5 +1,6 @@
 import { ArrowUpRightIcon } from "@phosphor-icons/react"; // Ikon panah untuk tombol submit
 import { useEffect, useRef, useState } from "react";
+import { useAlert } from "../hooks/Hooks";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 
@@ -140,13 +141,12 @@ export default function ContactPage() {
 
   const form = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState("");
+  const { dispatchAlert } = useAlert();
 
   const sendEmail = (e) => {
     e.preventDefault();
     if (isSubmitting) return;
     setIsSubmitting(true);
-    setMessage("");
 
     const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
     const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -156,12 +156,12 @@ export default function ContactPage() {
       .sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY)
       .then(
         (result) => {
-          setMessage("Message sent successfully!");
+          dispatchAlert({ type: "SHOW", payload: "Message sent successfully!", variant: "Success" });
           window.scrollTo({ top: 0, behavior: "smooth" });
           if (form.current) form.current.reset();
         },
         (error) => {
-          setMessage("Failed to send message. Please try again.");
+          dispatchAlert({ type: "SHOW", payload: "Failed to send message. Please try again.", variant: "Danger" });
         }
       )
       .finally(() => {
@@ -190,12 +190,6 @@ export default function ContactPage() {
         <div className="text-3xl md:text-5xl font-semibold mb-12 lg:mb-16">
           Get in <span className="text-[#828282]">Touch</span>
         </div>
-
-        {message && (
-          <div className={`mb-6 text-center font-semibold ${message.includes("success") ? "text-green-400" : "text-red-400"}`}>
-            {message}
-          </div>
-        )}
 
         <form ref={form} className="mx-auto space-y-8" onSubmit={sendEmail}>
           {/* Hidden field for submittedAt */}
