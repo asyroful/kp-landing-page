@@ -31,29 +31,31 @@ const HeroSection = () => {
           },
         }}
       >
-        <motion.div
-          className="mb-6"
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
-          }}
-        >
-          <div className="w-20 h-20 md:w-24 md:h-24 rounded-xl overflow-hidden border-2 border-white mx-0">
-            <img src={profileImage} alt="Kevin Oliveri" className="w-full h-full object-cover" />
-          </div>
-        </motion.div>
-        <motion.div
-          className="text-3xl/[60px] md:text-5xl/[80px] leading-10 mb-6 text-white"
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
-          }}
-        >
-          Kevin Oliveri is a Creative Director & Cinematographer who {" "}
-          <span className="font-semibold text-[#828282]">
-            crafts high-energy visuals and cinematic stories that inspire.
-          </span>
-        </motion.div>
+        <div className="flex">
+          <motion.div
+            className="mb-6 order-2"
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+            }}
+          >
+            <div className="w-[74px] h-[74px] md:w-40 md:h-40 rounded-xl overflow-hidden border-2 border-white mx-0">
+              <img src={profileImage} alt="Kevin Oliveri" className="w-full h-full object-cover" />
+            </div>
+          </motion.div>
+          <motion.div
+            className="text-xl/[60px] md:text-5xl/[80px] leading-10 mb-6 text-white order-1"
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+            }}
+          >
+            Kevin Oliveri is a Creative Director & Cinematographer who {" "}
+            <span className="font-semibold text-[#828282]">
+              crafts high-energy visuals and cinematic stories that inspire.
+            </span>
+          </motion.div>
+        </div>
         <motion.div
           className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8"
           variants={{
@@ -79,7 +81,7 @@ const HeroSection = () => {
           </button>
         </motion.div>
         <motion.p
-          className="text-sm sm:text-base text-white mb-6"
+          className="text-sm sm:text-base text-white mb-6 mt-20 md:mt-0"
           variants={{
             hidden: { opacity: 0, y: 20 },
             visible: {
