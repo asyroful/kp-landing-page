@@ -185,7 +185,7 @@ export default function ContactPage() {
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="bg-[#07090D] min-h-screen text-white pt-10 pb-20"
     >
-      <div className="container mx-auto px-6 sm:px-10 lg:px-20">
+      <div className="container mx-auto px-6 sm:px-10 lg:px-0 max-w-[1126px]">
         {/* --- JUDUL SECTION --- */}
         <div className="text-3xl md:text-5xl font-semibold mb-12 lg:mb-16">
           Get in <span className="text-[#828282]">Touch</span>
