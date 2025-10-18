@@ -7,12 +7,14 @@ import ProjectSection from "./home/ProjectSection";
 export default function HomePage() {
   return (
     <>
-      <Helmet>
-        <title>Kevin Portfolio</title>
-      </Helmet>
-      <HeroSection />
-      <AboutSection />
-      <ServiceSection />
+      <div className="max-w-[1126px] mx-auto">
+        <Helmet>
+          <title>Kevin Portfolio</title>
+        </Helmet>
+        <HeroSection />
+        <AboutSection />
+        <ServiceSection />
+      </div>
       <ProjectSection />
     </>
   );

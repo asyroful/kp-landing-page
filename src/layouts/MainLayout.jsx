@@ -5,7 +5,7 @@ import starsLeft from '../assets/stars-left.png';
 
 export default function MainLayout({ children }) {
   return (
-    <div className="flex flex-col min-h-screen bg-[#121212]">
+    <div className="flex flex-col min-h-screen bg-[#07090D]">
       {/* Stars Left */}
       <img 
         src={starsLeft} 

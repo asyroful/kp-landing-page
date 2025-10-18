@@ -183,7 +183,7 @@ export default function ContactPage() {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="bg-[#121212] min-h-screen text-white pt-10 pb-20"
+      className="bg-[#07090D] min-h-screen text-white pt-10 pb-20"
     >
       <div className="container mx-auto px-6 sm:px-10 lg:px-20">
         {/* --- JUDUL SECTION --- */}

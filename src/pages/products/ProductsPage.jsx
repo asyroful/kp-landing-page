@@ -112,12 +112,12 @@ export default function ProductsPage() {
   return (
     <motion.section
       id="completed-projects"
-      className="py-20 bg-[#121212]"
+      className="py-20 bg-[#07090D]"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <div className="container mx-auto px-4 sm:px-10 lg:px-20">
+      <div className="container mx-auto px-4 sm:px-10 lg:px-0 max-w-[1126px]">
         {/* Judul Section */}
         <div className="text-3xl md:text-5xl font-semibold mb-8 text-white">
           Completed <span className="text-[#828282]">Projects</span>

@@ -98,7 +98,7 @@ export default function ProductDetailPage() {
 
   // Clean metadata component
   const ProjectMeta = ({ client, year, services }) => (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12 border-b border-[#282828] pb-6">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-12 border-b border-[#282828] pb-6">
       <MetaItem label="Client" value={client} />
       <MetaItem label="Year" value={year} />
       <MetaItem label="Services" value={services} />
@@ -109,28 +109,22 @@ export default function ProductDetailPage() {
 
   const MetaItem = ({ label, value }) => (
     <div>
-      <p className="text-white text-2xl tracking-widest mb-6">{label}</p>
+      <p className="text-white text-lg md:text-2xl tracking-widest mb-4 md:mb-6">{label}</p>
       <p className={`${textStyleMd} text-[#9E9E9E]`}>{value}</p>
     </div>
   );
 
   return (
     <motion.div
-      className="bg-[#121212] text-white pt-10 pb-20"
+      className="bg-[#07090D] text-white pt-10 pb-20"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <div className="container mx-auto px-4 sm:px-10 lg:px-20">
+      <div className="container mx-auto px-4 sm:px-10 lg:px-0 max-w-[1126px]">
         {/* --- HEADER DAN JUDUL --- */}
         <div className="flex items-center mb-12 md:mb-16">
-          <button
-            onClick={() => window.history.back()}
-            className="mr-4 p-2 rounded-full bg-[#282828] hover:bg-[#383838] transition-colors"
-          >
-            <CaretLeftIcon size={24} className="text-white" />
-          </button>
-          <h1 className="text-3xl md:text-5xl font-semibold">
+          <h1 className="text-[32px] md:text-4xl font-semibold">
             {projectData.title}
           </h1>
         </div>
@@ -139,10 +133,10 @@ export default function ProductDetailPage() {
         <ProjectMeta client={projectData.client} year={projectData.year} services={projectData.services} />
 
         <div className="mb-12">
-          <h2 className="text-xl lg:text-3xl font-semibold mb-6">
+          <h2 className="text-lg lg:text-2xl font-semibold mb-6">
             Project Overview
           </h2>
-          <p className={`${textStyleMd} text-[#9E9E9E]`}>{projectData.overview}</p>
+          <p className="text-base md:text-2xl text-[#9E9E9E]">{projectData.overview}</p>
         </div>
 
         {/* --- VIDEO UTAMA / MEDIA --- */}
@@ -153,12 +147,12 @@ export default function ProductDetailPage() {
         <div className="space-y-12">
           {/* 1. Responsibilities & Scope */}
           <div>
-            <h3 className="text-xl lg:text-3xl font-semibold mb-6">
+            <h3 className="text-base lg:text-2xl font-semibold mb-6">
               Responsibilities & Scope
             </h3>
-            <ul className="list-disc ml-5 space-y-2 text-sm lg:text-lg text-[#C9C9C9]">
+            <ul className="list-disc ml-5 space-y-2 text-[#9E9E9E]">
               {projectData.responsibilities.map((item, index) => (
-                <li key={index} className={textStyleMd}>
+                <li key={index} className="text-base md:text-2xl">
                   {item}
                 </li>
               ))}
@@ -167,7 +161,7 @@ export default function ProductDetailPage() {
 
           {/* 2. Process & Execution */}
           <div>
-            <h3 className="text-xl lg:text-3xl font-semibold mb-6">
+            <h3 className="text-base lg:text-2xl font-semibold mb-6">
               Process & Execution
             </h3>
 
@@ -175,9 +169,9 @@ export default function ProductDetailPage() {
             <p className="font-semibold mt-4 mb-2 text-base lg:text-xl">
               1. Pre-Production
             </p>
-            <ul className="list-disc ml-5 space-y-2 text-sm lg:text-lg text-[#9E9E9E]">
+            <ul className="list-disc ml-5 space-y-2 text-[#9E9E9E]">
               {projectData.process.preProduction.map((item, index) => (
-                <li key={index} className={textStyleMd}>
+                <li key={index} className="text-base md:text-2xl">
                   {item}
                 </li>
               ))}
@@ -187,9 +181,9 @@ export default function ProductDetailPage() {
             <p className="font-semibold mt-4 mb-2 text-base lg:text-xl">
               2. Production
             </p>
-            <ul className="list-disc ml-5 space-y-2 text-sm lg:text-lg text-[#9E9E9E]">
+            <ul className="list-disc ml-5 space-y-2 text-[#9E9E9E]">
               {projectData.process.production.map((item, index) => (
-                <li key={index} className={textStyleMd}>
+                <li key={index} className="text-base md:text-2xl">
                   {item}
                 </li>
               ))}
@@ -199,9 +193,9 @@ export default function ProductDetailPage() {
             <p className="font-semibold mt-4 mb-2 text-base lg:text-xl">
               3. Post & Delivery
             </p>
-            <ul className="list-disc ml-5 space-y-2 text-sm lg:text-lg text-[#9E9E9E]">
+            <ul className="list-disc ml-5 space-y-2 text-[#9E9E9E]">
               {projectData.process.postProduction.map((item, index) => (
-                <li key={index} className={textStyleMd}>
+                <li key={index} className="text-base md:text-2xl">
                   {item}
                 </li>
               ))}
@@ -213,9 +207,9 @@ export default function ProductDetailPage() {
             <h3 className="text-xl lg:text-3xl font-semibold mb-6">
               Outcomes & Impact
             </h3>
-            <ul className="list-disc ml-5 space-y-2 text-sm lg:text-lg text-[#9E9E9E]">
+            <ul className="list-disc ml-5 space-y-2 text-[#9E9E9E]">
               {projectData.outcomes.map((item, index) => (
-                <li key={index} className={textStyleMd}>
+                <li key={index} className="text-base md:text-2xl">
                   {item}
                 </li>
               ))}

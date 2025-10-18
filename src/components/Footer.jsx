@@ -35,44 +35,22 @@ const socialMediaLinks = [
 
 const Footer = () => {
   return (
-    <div className="bg-[#121212] py-4">
+    <div className="bg-[#07090D] py-10">
       <footer className="
-        bg-[#121212] 
+        bg-[#101216] 
         text-white 
-        py-12 
-        relative 
-        overflow-hidden 
-        mx-auto 
-        max-w-sm
-        md:max-w-4xl
-        lg:max-w-6xl 
-        rounded-xl
-        border-t border-[#454545]"
+        py-12
+        w-full"
       >
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <img
-            src={starsLeft}
-            alt="Stars Left"
-            className="absolute top-0 left-0 z-10"
-          />
-          <img
-            src={starsLeft}
-            alt="Stars Right (Mirrored)"
-            className="absolute top-0 right-0 z-10 transform scale-x-[-1]"
-          />
-        </div>
-
         <div className="container mx-auto px-4 relative z-10 flex flex-col items-center text-center">
-          <img src={logo} alt="Kevin Logo" />
-
           {/* Bagian Call to Action (CTA) */}
-          <div className="max-w-3xl mt-6">
-            <div className="text-[32px] lg:text-5xl font-bold mb-4">
+          <div className="max-w-xl mt-6">
+            <h1 className="text-[32px] lg:text-5xl font-bold mb-4">
               Let's Work<span className="text-[#828282]"> Together</span>
-            </div>
+            </h1>
 
             {/* Deskripsi */}
-            <p className="text-lg md:text-xl text-gray-400 mb-6">
+            <p className="text-lg md:text-2xl text-[#828282] mb-8">
               Do you have a story worth telling? Let’s create something
               unforgettable.
             </p>
@@ -84,24 +62,8 @@ const Footer = () => {
             >
               Get In Touch
             </a>
-          </div>
 
-          {/* Garis Pembatas (Opsional, tapi bagus untuk struktur) */}
-
-          {/* Baris Bawah: Copyright dan Social Media */}
-          <div className="mt-20 md:mt-0 flex flex-col md:flex-row w-full max-w-5xl text-sm text-gray-400
-            items-start text-left
-            md:items-center md:text-center
-            lg:items-center lg:text-center
-            justify-between">
-            {/* Copyright */}
-            <div className="order-1 mt-4 md:mt-0 w-full md:w-auto lg:w-auto">
-              © 2025 kevinoliveri. All rights reserved.
-            </div>
-            <div className="w-full max-w-xl mx-4 order-2 h-px bg-white/20 my-4 md:my-16"></div>
-
-            {/* Social Media Links */}
-            <div className="flex space-x-4 order-3 w-full md:w-auto lg:w-auto justify-start md:justify-center lg:justify-center">
+            <div className="flex space-x-4 w-full justify-center mt-20 mb-10">
               {socialMediaLinks.map((link) => (
                 <a
                   key={link.name}
@@ -118,6 +80,10 @@ const Footer = () => {
           </div>
         </div>
       </footer>
+      {/* Copyright */}
+      <div className="mt-6 mb-10 w-full md:w-auto lg:w-auto text-white text-center">
+        © 2025 kevinoliveri. All rights reserved.
+      </div>
     </div>
   );
 };

@@ -39,24 +39,30 @@ export default function Navbar() {
 
   // Helper for section navigation: go to home, set query, scroll
   const goToSection = (section) => {
-    if (location.pathname !== "/") {
-      navigate("/");
-      setTimeout(() => {
-        window.history.replaceState(null, "", `/?${section}`);
-        const el = document.getElementById(section);
-        if (el) el.scrollIntoView({ behavior: "smooth" });
-      }, 100); // delay for page render
-    } else {
+    const scrollToSectionWithOffset = () => {
       window.history.replaceState(null, "", `/?${section}`);
       const el = document.getElementById(section);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
+      const navEl = document.querySelector('nav');
+      const navHeight = navEl ? navEl.offsetHeight : 0;
+      if (el) {
+        const y = el.getBoundingClientRect().top + window.scrollY - navHeight;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    };
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(scrollToSectionWithOffset, 120); // sedikit delay agar section sudah render
+    } else {
+      scrollToSectionWithOffset();
     }
   };
 
   return (
     <nav
       className={`sticky top-0 z-50 transition-colors duration-300 ${
-        scrolled ? "bg-[#181818]" : `${isOpen ? "bg-black" : "bg-transparent"}`
+        scrolled
+          ? "bg-[#181818]/70 backdrop-blur-md shadow-lg border-b border-white/10"
+          : `${isOpen ? "bg-black" : "bg-transparent"}`
       }`}
       style={{ overflow: "visible" }}
     >
@@ -80,17 +86,14 @@ export default function Navbar() {
       <div
         className={[
           "w-full",
-          "max-w-8xl",
+          "max-w-[1126px]",
           "mx-auto",
-          "py-3",
+          "py-2",
           "relative",
           "z-10",
           "flex",
           "items-center",
           "justify-between",
-          "px-4",
-          "md:px-8",
-          "lg:px-20",
           isOpen ? "bg-black lg:bg-transparent" : "",
         ].join(" ")}
       >
@@ -125,7 +128,7 @@ export default function Navbar() {
           <>
             <div className="hidden lg:block flex-shrink-0">
               <NavLink to="/" className="inline-block align-middle">
-                <img src={logo} alt="Kevin Logo" className="object-contain" />
+                <img src={logo} alt="Kevin Logo" className="object-contain w-16" />
               </NavLink>
             </div>
             <div className="hidden lg:block">
@@ -149,7 +152,7 @@ export default function Navbar() {
                       <NavLink
                         to={link.path}
                         className={() =>
-                          "px-3 py-2 rounded-md text-xl text-gray-400 font-medium transition-colors duration-300"
+                          "px-3 py-2 rounded-md text-sm text-white font-medium transition-colors duration-300"
                         }
                         onClick={(e) => {
                           if (link.path.startsWith("/?")) {
@@ -187,7 +190,7 @@ export default function Navbar() {
             <div className="hidden lg:block">
               <div>
                 <button
-                  className="px-4 py-3 rounded-lg bg-white text-black font-semibold text-xl"
+                  className="px-4 py-3 rounded-lg bg-white text-black font-semibold text-sm"
                   onClick={() => {
                     navigate("/contact");
                     setIsOpen(false);

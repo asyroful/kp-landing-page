@@ -34,12 +34,12 @@ const ProjectCard = ({ project, onWatch }) => {
   const getResponsiveIframe = (iframeHtml) => {
     if (!iframeHtml) return null;
     // Default width for desktop
-    let width = 450;
+    let width = 720;
     if (typeof window !== 'undefined') {
       const w = window.innerWidth;
       if (w <= 340) width = 230;
       else if (w <= 480) width = 375;
-      else if (w <= 640) width = 450;
+      else if (w <= 640) width = 720;
     }
     // Replace width attribute in iframe
     return iframeHtml.replace(/width=["']\d+["']/, `width="${width}"`);
@@ -121,27 +121,6 @@ const ProjectSection = () => {
     },
   ];
 
-  let totalProjects = projects.length;
-  // Navigation
-  const goToPrev = () => {
-    setCurrentIndex((prev) => {
-      // If at first, next is last, direction left
-      if (prev === 0) setDirection(-1);
-      else setDirection(-1);
-      return (prev - 1 + totalProjects) % totalProjects;
-    });
-    setHoverIndex(null);
-  };
-  const goToNext = () => {
-    setCurrentIndex((prev) => {
-      // If at last, next is first, direction right
-      if (prev === totalProjects - 1) setDirection(1);
-      else setDirection(1);
-      return (prev + 1) % totalProjects;
-    });
-    setHoverIndex(null);
-  };
-
   // Handler for opening modal with autoplay and wider iframe
   const handleWatch = (iframeHtml) => {
     // Extract src from iframe string
@@ -166,103 +145,167 @@ const ProjectSection = () => {
     setModalIframe('');
   };
 
+  let totalProjects = projects.length;
+  // Navigation
+  const goToPrev = () => {
+    setCurrentIndex((prev) => {
+      // If at first, next is last, direction left
+      if (prev === 0) setDirection(-1);
+      else setDirection(-1);
+      return (prev - 1 + totalProjects) % totalProjects;
+    });
+    setHoverIndex(null);
+  };
+  const goToNext = () => {
+    setCurrentIndex((prev) => {
+      // If at last, next is first, direction right
+      if (prev === totalProjects - 1) setDirection(1);
+      else setDirection(1);
+      return (prev + 1) % totalProjects;
+    });
+    setHoverIndex(null);
+  };
+
   // --- Responsive logic for visible cards ---
   // Below md: 1 card, md: 2 cards, lg: 3 cards
   const [cardsToShow, setCardsToShow] = useState(3);
   useEffect(() => {
     const updateCardsToShow = () => {
-      if (window.innerWidth < 768) setCardsToShow(1); // <md
-      else if (window.innerWidth < 1024) setCardsToShow(2); // md
-      else setCardsToShow(3); // lg+
+      if (window.innerWidth < 768) {
+        setCardsToShow(1); // Mobile
+      } else if (window.innerWidth < 1024) {
+        setCardsToShow(3); // Tablet
+      } else {
+        setCardsToShow(4); // Desktop
+      }
     };
     updateCardsToShow();
     window.addEventListener('resize', updateCardsToShow);
     return () => window.removeEventListener('resize', updateCardsToShow);
   }, []);
 
-  let start = Math.max(0, currentIndex - Math.floor(cardsToShow / 2));
-  let end = start + cardsToShow;
-  if (end > totalProjects) {
-    end = totalProjects;
-    start = Math.max(0, end - cardsToShow);
-  }
-  const visibleProjects = projects.slice(start, end);
+  // --- Carousel wrap-around logic: center currentIndex, wrap left/right ---
+  const getVisibleProjects = () => {
+    if (totalProjects === 0) return [];
+    let result = [];
+    for (let i = 0; i < cardsToShow; i++) {
+      // Calculate the index for each visible card, wrapping around
+      let idx = (currentIndex - Math.floor(cardsToShow / 2) + i + totalProjects) % totalProjects;
+      result.push(projects[idx]);
+    }
+    return result;
+  };
+  const visibleProjects = getVisibleProjects();
 
   // Only allow hover on visible cards
   const handleCardMouseEnter = (realIdx) => {
-    if (realIdx >= start && realIdx < end) {
-      setHoverIndex(realIdx);
-    }
+    setHoverIndex(realIdx);
   };
   const handleCardMouseLeave = () => {
     setHoverIndex(null);
   };
 
   return (
-    <section id="projects" className="pt-10 pb-20 bg-[#121212] scroll-mt-24">
+    <section id="projects" className="pt-10 pb-20 bg-[#07090D] scroll-mt-24">
       <VideoModal open={modalOpen} onClose={handleCloseModal} iframeHtml={modalIframe} />
-      <div className="container mx-auto px-4 sm:px-10 lg:px-20">
+      <div className="container mx-auto px-4 lg:px-0 max-w-[1126px]">
         {/* HEADER ROW */}
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center mb-10 md:mb-12">
-          <div className="text-3xl md:text-5xl font-semibold text-white">
+          <div className="text-2xl md:text-4xl font-semibold text-white">
             Featured <span className="text-[#828282]">Project</span>
           </div>
           <button onClick={() => navigate('/project')} className="w-full sm:w-auto px-4 py-2 md:px-6 md:py-3 rounded-lg bg-white text-black font-semibold text-sm md:text-base hover:bg-gray-200 transition-colors">
             See All Project
           </button>
         </div>
+      </div>
 
-        {/* --- RESPONSIVE CAROUSEL --- */}
-        <div className="flex items-center justify-center mb-10 relative" style={{ minHeight: 420 }}>
-          <div className="flex w-full gap-4 overflow-hidden" style={{ maxWidth: '100%' }}>
-            <AnimatePresence initial={false} mode="popLayout">
-              {visibleProjects.map((project, idx) => {
-                const realIdx = start + idx;
-                const isActive = hoverIndex === realIdx || (hoverIndex === null && realIdx === currentIndex);
-                return (
-                  <div
-                    key={realIdx}
-                    className={`transition-all duration-300 flex-1 min-w-0 ${
-                      isActive
-                        ? 'z-20 scale-100 opacity-100 shadow-2xl bg-[#1A1A1A]'
-                        : 'z-10 scale-90 opacity-60 cursor-pointer'
-                    }`}
-                    onMouseEnter={() => handleCardMouseEnter(realIdx)}
-                    onMouseLeave={handleCardMouseLeave}
-                    onClick={() => setCurrentIndex(realIdx)}
-                  >
-                    <ProjectCard project={project} onWatch={() => handleWatch(project.link)} />
-                  </div>
-                );
-              })}
-            </AnimatePresence>
-          </div>
+      {/* --- RESPONSIVE CAROUSEL FULL WIDTH --- */}
+      <div className="w-full flex items-center justify-center mb-10 relative" style={{ minHeight: 420 }}>
+        {/* Touch swipe logic for carousel */}
+        <div
+          className="flex w-full gap-4 overflow-x-hidden px-4 md:px-0"
+          style={{ maxWidth: '100%' }}
+          onTouchStart={(e) => {
+            if (e.touches.length === 1) {
+              window._carouselTouchStartX = e.touches[0].clientX;
+            }
+          }}
+          onTouchEnd={(e) => {
+            if (typeof window._carouselTouchStartX !== 'number') return;
+            const touchEndX = e.changedTouches[0].clientX;
+            const deltaX = touchEndX - window._carouselTouchStartX;
+            // Threshold for swipe
+            if (Math.abs(deltaX) > 50) {
+              if (deltaX < 0) {
+                goToNext();
+              } else {
+                goToPrev();
+              }
+            }
+            window._carouselTouchStartX = undefined;
+          }}
+        >
+          <AnimatePresence initial={false} mode="popLayout">
+            {visibleProjects.map((project, idx) => {
+              // Calculate the real index in the projects array for each visible card
+              const realIdx = (currentIndex - Math.floor(cardsToShow / 2) + idx + totalProjects) % totalProjects;
+              const isActive = hoverIndex === realIdx || (hoverIndex === null && realIdx === currentIndex);
+              // Card width and peek effect
+              let cardClass = 'transition-all duration-300 min-w-0';
+              let style = {};
+              if (cardsToShow === 1) {
+                // Mobile: 1 card, full width
+                cardClass += ' flex-1';
+                style = { width: '100%', minWidth: 0 };
+              } else if (idx === 0 || idx === visibleProjects.length - 1) {
+                // Tablet/Desktop: first and last card: show as partial (peek)
+                cardClass += ' flex-[0.5_1_0%] scale-90 opacity-60 pointer-events-none';
+                style = idx === 0
+                  ? { marginLeft: '-6%', zIndex: 5 }
+                  : { marginRight: '-6%', zIndex: 5 };
+              } else {
+                // Center cards: full
+                cardClass += ' flex-1';
+                cardClass += isActive
+                  ? ' z-20 scale-100 opacity-100 shadow-2xl bg-[#1A1A1A]'
+                  : ' z-10 scale-95 opacity-80 cursor-pointer';
+              }
+              return (
+                <div
+                  key={realIdx}
+                  className={cardClass}
+                  onMouseEnter={() => handleCardMouseEnter(realIdx)}
+                  onMouseLeave={handleCardMouseLeave}
+                  onClick={() => setCurrentIndex(realIdx)}
+                  style={style}
+                >
+                  <ProjectCard project={project} onWatch={() => handleWatch(project.link)} />
+                </div>
+              );
+            })}
+          </AnimatePresence>
         </div>
+      </div>
 
-        {/* NAVIGATION / PAGINATION */}
-        <div className="flex justify-between items-center mt-6 lg:mt-0">
-          {/* Left & Right Arrows */}
-          <div className="flex space-x-4">
-            <button
-              onClick={goToPrev}
-              className="p-3 rounded-full bg-[#282828] text-white hover:bg-[#383838] transition-colors"
-            >
-              {/* Ikon CaretLeft dari Phosphor Icons */}
-              <CaretLeftIcon size={24} weight="bold" />
-            </button>
-            <button
-              onClick={goToNext}
-              className="p-3 rounded-full bg-[#282828] text-white hover:bg-[#383838] transition-colors"
-            >
-              {/* Ikon CaretRight dari Phosphor Icons */}
-              <CaretRightIcon size={24} weight="bold" />
-            </button>
-          </div>
-
-          {/* Pagination Count */}
-          <div className="text-white text-lg">
-            {`${String((hoverIndex !== null && hoverIndex >= start && hoverIndex < end ? hoverIndex : currentIndex) + 1)}/${totalProjects}`}
-          </div>
+      {/* NAVIGATION / PAGINATION */}
+      <div className="flex justify-center items-center mt-6 lg:mt-0">
+        {/* Left & Right Arrows */}
+        <div className="flex space-x-4">
+          <button
+            onClick={goToPrev}
+            className="p-3 hover:rounded-xl text-white hover:bg-[#1A1A1A] transition-colors"
+          >
+            {/* Ikon CaretLeft dari Phosphor Icons */}
+            <CaretLeftIcon size={24} weight="bold" />
+          </button>
+          <button
+            onClick={goToNext}
+            className="p-3 hover:rounded-xl text-white hover:bg-[#1A1A1A] transition-colors"
+          >
+            {/* Ikon CaretRight dari Phosphor Icons */}
+            <CaretRightIcon size={24} weight="bold" />
+          </button>
         </div>
       </div>
     </section>

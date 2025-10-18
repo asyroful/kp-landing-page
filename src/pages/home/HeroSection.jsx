@@ -18,9 +18,9 @@ const HeroSection = () => {
   };
 
   return (
-    <div id="hero" className="relative min-h-[70vh] md:min-h-[80vh] flex items-center justify-center overflow-hidden bg-[#121212] px-2 sm:px-4 pb-20 scroll-mt-28">
+    <div id="hero" className="relative my-10 md:my-20 flex items-center justify-center overflow-hidden bg-[#07090D] sm:px-4 md:px-0 scroll-mt-28">
       <motion.div
-        className="relative z-20 w-full max-w-3xl md:max-w-4xl lg:max-w-5xl mx-auto px-10 lg:px-0 text-left"
+        className="relative z-20 w-full mx-auto px-4 md:px-0 text-left"
         initial="hidden"
         animate="visible"
         variants={{
@@ -31,7 +31,7 @@ const HeroSection = () => {
           },
         }}
       >
-        <div className="flex">
+        <div className="flex gap-6">
           <motion.div
             className="mb-6 order-2"
             variants={{
@@ -39,12 +39,12 @@ const HeroSection = () => {
               visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
             }}
           >
-            <div className="w-[74px] h-[74px] md:w-40 md:h-40 rounded-xl overflow-hidden border-2 border-white mx-0">
+            <div className="w-[64px] h-[66px] md:w-[151px] md:h-[159px] rounded-xl overflow-hidden border-2 border-white mx-0">
               <img src={profileImage} alt="Kevin Oliveri" className="w-full h-full object-cover" />
             </div>
           </motion.div>
           <motion.div
-            className="text-xl/[60px] md:text-5xl/[80px] leading-10 mb-6 text-white order-1"
+            className="text-xl md:text-[40px]/[65px] md:leading-12 mb-6 text-white order-1"
             variants={{
               hidden: { opacity: 0, y: 30 },
               visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
@@ -57,7 +57,7 @@ const HeroSection = () => {
           </motion.div>
         </div>
         <motion.div
-          className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8"
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-16"
           variants={{
             hidden: { opacity: 0, y: 30 },
             visible: {
@@ -69,19 +69,19 @@ const HeroSection = () => {
         >
           <button
             onClick={() => navigate('/contact')}
-            className="px-6 sm:px-8 py-3 rounded-lg bg-white text-black font-semibold text-lg md:text-xl hover:bg-gray-200 transition-colors"
+            className="px-6 sm:px-8 py-3 rounded-lg bg-white text-black font-semibold text-sm md:text-base hover:bg-gray-200 transition-colors"
           >
             Get In Touch
           </button>
           <button
             onClick={handleSeeMyWork}
-            className="px-6 py-3 rounded-lg bg-[#282828] text-white font-semibold text-lg md:text-xl hover:bg-[#383838] transition-colors flex items-center justify-center"
+            className="px-6 py-3 rounded-lg bg-[#282828] text-white font-semibold text-sm md:text-base hover:bg-[#383838] transition-colors flex items-center justify-center"
           >
             See My Work <ArrowUpRightIcon size={22} className="ml-2" />
           </button>
         </motion.div>
         <motion.p
-          className="text-sm sm:text-base text-white mb-6 mt-20 md:mt-0"
+          className="text-sm md:text-base text-white mb-6"
           variants={{
             hidden: { opacity: 0, y: 20 },
             visible: {
