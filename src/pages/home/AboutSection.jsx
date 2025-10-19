@@ -16,7 +16,7 @@ const AboutSection = () => {
                         border border-[#373333] 
                         rounded-xl 
                         p-4 md:p-8 
-                        grid grid-cols-1 lg:grid-cols-3 gap-12 
+                        flex flex-col lg:flex-row gap-12 
                         shadow-[0_0_4px_4px_#67676740] 
                         relative
                     "
@@ -26,10 +26,10 @@ const AboutSection = () => {
           }}
         >
           {/* Kolom Kiri: Teks dan Statistik */}
-          <div className="flex flex-col justify-between lg:col-span-2">
+          <div className="flex flex-col justify-between">
             <div className="w-full">
               {/* Intro */}
-              <div className="text-base md:text-xl font-normal text-white">
+              <div className="text-base md:text-xl font-normal text-white text-justify">
                 Welcome! I’m Kevin, a filmmaker passionate about turning
                 adrenaline, adventure, and authentic moments into cinematic
                 stories.
@@ -86,13 +86,13 @@ const AboutSection = () => {
           </div>
 
           {/* Kolom Kanan: Gambar */}
-          <div className="order-first lg:order-last flex items-center lg:block lg:col-span-1">
-            <div className="w-full h-80 md:h-96 lg:h-full overflow-hidden rounded-lg">
+          <div className="order-first lg:order-last flex items-center lg:block lg:min-w-[423px]">
+            <div className="w-full h-80 md:h-[455px] overflow-hidden rounded-lg">
               {/* Placeholder/Actual Image */}
               <img
                 src={imgAboutUs}
                 alt="Kevin Oliveri"
-                className="w-full h-full object-cover"
+                className="w-full"
               />
             </div>
           </div>

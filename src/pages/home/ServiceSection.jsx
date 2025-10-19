@@ -91,7 +91,7 @@ const AccordionContent = ({ isOpen, index, service, onClick }) => (
     >
       <div className="col-span-3 lg:col-span-2">
         <div className="mb-8">
-          <div className="text-base lg:text-lg text-[#828282] text-normal">{service.description}</div>
+          <div className="text-base lg:text-lg text-[#828282] text-normal text-justify">{service.description}</div>
         </div>
         <div className="mt-6 text-center flex flex-wrap gap-3 overflow-x-auto whitespace-nowrap md:grid md:grid-cols-2 md:whitespace-normal md:overflow-visible lg:flex lg:flex-wrap lg:gap-3 lg:grid-cols-none">
           {service.tags.map((tag, tagIndex) => (

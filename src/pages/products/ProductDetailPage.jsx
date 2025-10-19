@@ -136,7 +136,7 @@ export default function ProductDetailPage() {
           <h2 className="text-lg lg:text-2xl font-semibold mb-6">
             Project Overview
           </h2>
-          <p className="text-base md:text-2xl text-[#9E9E9E]">{projectData.overview}</p>
+          <p className="text-base md:text-2xl text-[#9E9E9E] text-justify">{projectData.overview}</p>
         </div>
 
         {/* --- VIDEO UTAMA / MEDIA --- */}
@@ -144,7 +144,7 @@ export default function ProductDetailPage() {
           <ResponsiveIframe src="https://www.youtube.com/embed/PM0RsJKs6Wg?si=JJUL9XFKc05JrI04" />
         </div>
         
-        <div className="space-y-12">
+        <div className="space-y-12 text-justify">
           {/* 1. Responsibilities & Scope */}
           <div>
             <h3 className="text-base lg:text-2xl font-semibold mb-6">
