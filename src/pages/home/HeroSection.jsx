@@ -31,7 +31,7 @@ const HeroSection = () => {
           },
         }}
       >
-        <div className="flex gap-6">
+        <div className="flex justify-between">
           <motion.div
             className="mb-6 order-2"
             variants={{
@@ -44,7 +44,7 @@ const HeroSection = () => {
             </div>
           </motion.div>
           <motion.div
-            className="text-xl md:text-[40px]/[65px] md:leading-12 mb-6 text-white order-1"
+            className="text-xl md:text-[40px]/[65px] leading-6 md:leading-[56px] tracking-[-0.04em] mb-6 text-white order-1 text-justify max-w-[269px] md:max-w-[761px]"
             variants={{
               hidden: { opacity: 0, y: 30 },
               visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
