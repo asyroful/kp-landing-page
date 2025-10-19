@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CaretLeftIcon, CaretRightIcon, PlayIcon, FileTextIcon, VideoCameraIcon, FilmReelIcon } from "@phosphor-icons/react";
+import { ArrowLeftIcon, ArrowRightIcon, PlayIcon, FileTextIcon, VideoCameraIcon, FilmReelIcon } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
 
 const VideoModal = ({ open, onClose, iframeHtml }) => {
@@ -206,7 +206,7 @@ const ProjectSection = () => {
   };
 
   return (
-    <section id="projects" className="pt-10 pb-20 bg-[#07090D] scroll-mt-24">
+    <section id="projects" className="py-10 bg-[#07090D] scroll-mt-24">
       <VideoModal open={modalOpen} onClose={handleCloseModal} iframeHtml={modalIframe} />
       <div className="container mx-auto px-4 lg:px-0 max-w-[1126px]">
         {/* HEADER ROW */}
@@ -296,15 +296,15 @@ const ProjectSection = () => {
             onClick={goToPrev}
             className="p-3 hover:rounded-xl text-white hover:bg-[#1A1A1A] transition-colors"
           >
-            {/* Ikon CaretLeft dari Phosphor Icons */}
-            <CaretLeftIcon size={24} weight="bold" />
+            {/* Ikon ArrowLeft dari Phosphor Icons */}
+            <ArrowLeftIcon size={24} weight="bold" />
           </button>
           <button
             onClick={goToNext}
             className="p-3 hover:rounded-xl text-white hover:bg-[#1A1A1A] transition-colors"
           >
-            {/* Ikon CaretRight dari Phosphor Icons */}
-            <CaretRightIcon size={24} weight="bold" />
+            {/* Ikon ArrowRight dari Phosphor Icons */}
+            <ArrowRightIcon size={24} weight="bold" />
           </button>
         </div>
       </div>

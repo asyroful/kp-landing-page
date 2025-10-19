@@ -35,22 +35,21 @@ const socialMediaLinks = [
 
 const Footer = () => {
   return (
-    <div className="bg-[#07090D] py-10">
+    <div className="bg-[#07090D] pt-10">
       <footer className="
         bg-[#101216] 
-        text-white 
-        py-12
-        w-full"
+        text-white
+        w-full py-8"
       >
         <div className="container mx-auto px-4 relative z-10 flex flex-col items-center text-center">
           {/* Bagian Call to Action (CTA) */}
-          <div className="max-w-xl mt-6">
-            <h1 className="text-[32px] lg:text-5xl font-bold mb-4">
+          <div className="max-w-xl">
+            <h1 className="text-[32px] lg:text-4xl font-bold mb-4">
               Let's Work<span className="text-[#828282]"> Together</span>
             </h1>
 
             {/* Deskripsi */}
-            <p className="text-lg md:text-2xl text-[#828282] mb-8">
+            <p className="text-lg md:text-xl text-[#828282] mb-8">
               Do you have a story worth telling? Let’s create something
               unforgettable.
             </p>
@@ -63,7 +62,7 @@ const Footer = () => {
               Get In Touch
             </a>
 
-            <div className="flex space-x-4 w-full justify-center mt-20 mb-10">
+            <div className="flex space-x-4 w-full justify-center mt-10">
               {socialMediaLinks.map((link) => (
                 <a
                   key={link.name}
@@ -81,7 +80,7 @@ const Footer = () => {
         </div>
       </footer>
       {/* Copyright */}
-      <div className="mt-6 mb-10 w-full md:w-auto lg:w-auto text-white text-center">
+      <div className="my-6 w-full md:w-auto lg:w-auto text-white text-center text-sm">
         © 2025 kevinoliveri. All rights reserved.
       </div>
     </div>
