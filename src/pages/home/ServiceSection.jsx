@@ -142,9 +142,15 @@ const ServiceSection = () => {
     <section id="services" ref={ref} className="pt-10 pb-20 bg-[#07090D] scroll-mt-24">
       <div className="container mx-auto px-4 md:px-0">
         {/* Section Title */}
-        <div className="text-2xl md:text-4xl font-semibold mb-12 text-white">
+        <motion.div 
+          className="text-2xl md:text-4xl font-semibold mb-12 text-white"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: "easeOut" }}
+        >
           Services <span className="text-[#828282]">| Offer</span>
-        </div>
+        </motion.div>
         {services.map((service, index) => {
           const isOpen = openIndex === index;
           return (

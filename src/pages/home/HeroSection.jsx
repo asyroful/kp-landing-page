@@ -6,9 +6,13 @@ import logoSalomon from "../../assets/logo-project/Logo_Salomon logo.svg";
 import logoGo from "../../assets/logo-project/Go logo.svg";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
 
   const handleSeeMyWork = () => {
     const nextSection = document.getElementById("projects");

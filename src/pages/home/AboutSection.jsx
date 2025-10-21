@@ -1,13 +1,20 @@
 import imgAboutUs from "../../assets/image/img-aboutus.png";
+import { motion } from "framer-motion";
 
 const AboutSection = () => {
   return (
     <section id="about" className="pt-10 pb-20 bg-[#07090D] scroll-mt-24">
       <div className="container mx-auto px-4 md:px-0">
         {/* Judul Section */}
-        <div className="text-2xl md:text-4xl font-semibold mb-12 text-white">
+        <motion.div
+          className="text-2xl md:text-4xl font-semibold mb-12 text-white"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: "easeOut" }}
+        >
           About <span className="text-[#828282]">Me</span>
-        </div>
+        </motion.div>
 
         {/* Box Konten About Me Sesuai Figma */}
         <div
@@ -30,24 +37,41 @@ const AboutSection = () => {
             <div className="w-full">
               {/* Intro */}
               <div className="text-base md:text-xl font-normal text-white text-justify">
-                Welcome! I’m Kevin, a filmmaker passionate about turning
-                adrenaline, adventure, and authentic moments into cinematic
-                stories.
+                <motion.span
+                  className="text-[#828282]"
+                  initial={{ color: "#828282" }}
+                  whileInView={{ color: "#FFF" }}
+                  transition={{ duration: 0.3 }}
+                >
+                  Welcome! I’m Kevin, a filmmaker passionate about turning
+                  adrenaline, adventure, and authentic moments into cinematic
+                  stories.
+                </motion.span>
                 <br />
                 <br />
-                <span className="text-[#828282]">
+                <motion.span
+                  className="text-[#828282]"
+                  initial={{ color: "#828282" }}
+                  whileInView={{ color: "#FFF" }}
+                  transition={{ duration: 0.3 }}
+                >
                   With over 8 years of experience in action sports and lifestyle
                   filmmaking, I’ve had the privilege of working with global
                   brands and athletes to capture their most powerful stories.
-                </span>
+                </motion.span>
                 <br />
                 <br />
-                <span className="text-[#828282]">
+                <motion.span
+                  className="text-[#828282]"
+                  initial={{ color: "#828282" }}
+                  whileInView={{ color: "#FFF" }}
+                  transition={{ duration: 0.3, delay: 0.2 }}
+                >
                   From snow-capped mountains in Switzerland to tropical
                   coastlines worldwide, I thrive on the challenge of blending
                   technical precision with artistic storytelling to create
                   visuals that leave a lasting impact.
-                </span>
+                </motion.span>
               </div>
             </div>
 

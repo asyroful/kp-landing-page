@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
 import { motion } from "framer-motion";
-import { CaretLeftIcon } from "@phosphor-icons/react";
+import { useEffect } from "react";
 
 // --- DATA DUMMY PROYEK UNTUK DEMO ---
 const projectData = {
@@ -66,6 +65,10 @@ const anotherProjects = [
 
 // --- FUNGSI RESPONSIF UTAMA ---
 export default function ProductDetailPage() {
+  // Scroll ke atas saat halaman dibuka
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
   // Komponen untuk men-render iFrame YouTube secara responsif
   // Sederhana: iframe responsive dengan aspect ratio 16:9
   const ResponsiveIframe = ({ src }) => (

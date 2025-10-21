@@ -208,7 +208,13 @@ const ProjectSection = () => {
   return (
     <section id="projects" className="py-10 bg-[#07090D] scroll-mt-24">
       <VideoModal open={modalOpen} onClose={handleCloseModal} iframeHtml={modalIframe} />
-      <div className="container mx-auto px-4 lg:px-0 max-w-[1126px]">
+      <motion.div 
+        className="container mx-auto px-4 lg:px-0 max-w-[1126px]"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
         {/* HEADER ROW */}
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center mb-10 md:mb-12">
           <div className="text-2xl md:text-4xl font-semibold text-white">
@@ -218,7 +224,7 @@ const ProjectSection = () => {
             See All Project
           </button>
         </div>
-      </div>
+      </motion.div>
 
       {/* --- RESPONSIVE CAROUSEL FULL WIDTH --- */}
       <div className="w-full flex items-center justify-center mb-10 relative" style={{ minHeight: 420 }}>
