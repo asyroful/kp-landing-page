@@ -41,6 +41,7 @@ const AboutSection = () => {
                   className="text-[#828282]"
                   initial={{ color: "#828282" }}
                   whileInView={{ color: "#FFF" }}
+                  viewport={{ amount: 1 }}
                   transition={{ duration: 0.3 }}
                 >
                   Welcome! I’m Kevin, a filmmaker passionate about turning
@@ -53,6 +54,7 @@ const AboutSection = () => {
                   className="text-[#828282]"
                   initial={{ color: "#828282" }}
                   whileInView={{ color: "#FFF" }}
+                  viewport={{ amount: 1 }}
                   transition={{ duration: 0.3 }}
                 >
                   With over 8 years of experience in action sports and lifestyle
@@ -65,6 +67,7 @@ const AboutSection = () => {
                   className="text-[#828282]"
                   initial={{ color: "#828282" }}
                   whileInView={{ color: "#FFF" }}
+                  viewport={{ amount: 1 }}
                   transition={{ duration: 0.3, delay: 0.2 }}
                 >
                   From snow-capped mountains in Switzerland to tropical
