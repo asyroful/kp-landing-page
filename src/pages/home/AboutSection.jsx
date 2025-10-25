@@ -1,7 +1,45 @@
 import imgAboutUs from "../../assets/image/img-aboutus.png";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+
+// Komponen animasi random count
+function RandomCountStat({ target, suffix, label, active }) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!active) return;
+    let frame = 0;
+    let interval = setInterval(() => {
+      frame++;
+      // Randomize count for effect
+      if (frame < 20) {
+        setCount(Math.floor(Math.random() * target));
+      } else if (frame < 40) {
+        setCount(Math.floor(target * Math.random()));
+      } else {
+        setCount(target);
+        clearInterval(interval);
+      }
+    }, 60);
+    return () => clearInterval(interval);
+  }, [target, active]);
+  return (
+    <div className="flex flex-col">
+      <motion.span
+        className="text-2xl md:text-[32px] font-bold text-white"
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.6 }}
+      >
+        {count}
+        <span className="text-[#828282]">{suffix}</span>
+      </motion.span>
+      <span className="text-xs md:text-base text-white mt-1">{label}</span>
+    </div>
+  );
+}
 
 const AboutSection = () => {
+  const [isStatActive, setIsStatActive] = useState(false);
   return (
     <section id="about" className="pt-10 pb-20 bg-[#07090D] scroll-mt-24">
       <div className="container mx-auto px-4 md:px-0">
@@ -69,6 +107,7 @@ const AboutSection = () => {
                   whileInView={{ color: "#FFF" }}
                   viewport={{ amount: 1 }}
                   transition={{ duration: 0.3, delay: 0.2 }}
+                  onViewportEnter={() => setIsStatActive(true)}
                 >
                   From snow-capped mountains in Switzerland to tropical
                   coastlines worldwide, I thrive on the challenge of blending
@@ -81,34 +120,11 @@ const AboutSection = () => {
             {/* Statistik (150+, 8+, 100%) */}
             <div className="grid grid-cols-3 mt-8 gap-3">
               {/* Item 1: Projects Filmed */}
-              <div className="flex flex-col">
-                <span className="text-2xl md:text-[32px] font-bold text-white">
-                  150<span className="text-[#828282]">+</span>
-                </span>
-                <span className="text-xs md:text-base text-white mt-1">
-                  Projects Filmed
-                </span>
-              </div>
-
+              <RandomCountStat target={150} suffix="+" label="Projects Filmed" active={isStatActive} />
               {/* Item 2: Years Experience */}
-              <div className="flex flex-col">
-                <span className="text-2xl md:text-[32px] font-bold text-white">
-                  8<span className="text-[#828282]">+</span>
-                </span>
-                <span className="text-xs md:text-base text-white mt-1">
-                  Years Experience
-                </span>
-              </div>
-
+              <RandomCountStat target={8} suffix="+" label="Years Experience" active={isStatActive} />
               {/* Item 3: Global Clients */}
-              <div className="flex flex-col">
-                <span className="text-2xl md:text-[32px] font-bold text-white">
-                  100<span className="text-[#828282]">%</span>
-                </span>
-                <span className="text-xs md:text-base text-white mt-1">
-                  Global Clients
-                </span>
-              </div>
+              <RandomCountStat target={100} suffix="%" label="Global Clients" active={isStatActive} />
             </div>
           </div>
 
