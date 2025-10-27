@@ -7,19 +7,19 @@ function RandomCountStat({ target, suffix, label, active }) {
   const [count, setCount] = useState(0);
   useEffect(() => {
     if (!active) return;
-    let frame = 0;
-    let interval = setInterval(() => {
-      frame++;
-      // Randomize count for effect
-      if (frame < 20) {
-        setCount(Math.floor(Math.random() * target));
-      } else if (frame < 40) {
-        setCount(Math.floor(target * Math.random()));
-      } else {
-        setCount(target);
+    setCount(0);
+    const duration = 1500; // 1.5 detik
+    const steps = target;
+    const intervalTime = duration / steps;
+    let current = 1;
+    setCount(1);
+    const interval = setInterval(() => {
+      current++;
+      setCount(current);
+      if (current >= target) {
         clearInterval(interval);
       }
-    }, 60);
+    }, intervalTime);
     return () => clearInterval(interval);
   }, [target, active]);
   return (
